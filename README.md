@@ -32,6 +32,10 @@ Licensed under the MIT License.
 go get github.com/zerjioang/s3go
 ```
 
+## Description
+
+The most common examples of finite fields are given by the integers mod p when p is a prime number. 
+
 ## License
 
 Copyright (c) 2019 Sergio Anguita
