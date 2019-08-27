@@ -14,4 +14,10 @@ func TestShare(t *testing.T) {
 		s := NewSharePtr(0)
 		assert.NotNil(t, s)
 	})
+	t.Run("string", func(t *testing.T) {
+		s := NewSharePtr(0)
+		str := s.String()
+		assert.NotNil(t, str)
+		assert.True(t, len(str) > 0)
+	})
 }
