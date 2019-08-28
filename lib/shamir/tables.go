@@ -1,6 +1,7 @@
 package shamir
 
-
+// Tables taken from http://www.samiam.org/galois.html
+// They use 0xe5 (229) as the generator
 var (
 	// logTable provides the log(X)/log(g) at each index X
 	logTable = [256]uint8{

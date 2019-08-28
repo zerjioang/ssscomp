@@ -24,4 +24,22 @@ func BenchmarkShare(b *testing.B) {
 			sptr = NewSharePtr(0)
 		}
 	})
+	b.Run("share-string", func(b *testing.B) {
+		b.ReportAllocs()
+		b.SetBytes(1)
+		b.ResetTimer()
+		s = NewShare(0)
+		for n := 0; n < b.N; n++ {
+			_ = s.String()
+		}
+	})
+	b.Run("share-ptr-string", func(b *testing.B) {
+		b.ReportAllocs()
+		b.SetBytes(1)
+		b.ResetTimer()
+		sptr = NewSharePtr(0)
+		for n := 0; n < b.N; n++ {
+			_ = s.String()
+		}
+	})
 }

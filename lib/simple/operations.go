@@ -12,8 +12,8 @@ func AdditiveAdd(a common.SecretNumber, b common.SecretNumber) (common.SecretNum
 		return sum, errors.New("invalid number of participants in given samples")
 	}
 	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares() ; i++ {
-		sum.shares[i] = a.Split(i)+b.Split(i)
+	for i := 0; i < a.MinShares(); i++ {
+		sum.shares[i] = a.Split(i) + b.Split(i)
 	}
 	return sum, nil
 }
@@ -21,8 +21,8 @@ func AdditiveAdd(a common.SecretNumber, b common.SecretNumber) (common.SecretNum
 func AdditiveNegation(a common.SecretNumber) common.SecretNumber {
 	sum := NewSimpleAdditiveScheme(a.Shares())
 	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares() ; i++ {
-		sum.shares[i] = - a.Split(i)
+	for i := 0; i < a.MinShares(); i++ {
+		sum.shares[i] = -a.Split(i)
 	}
 	return sum
 }
@@ -33,8 +33,8 @@ func AdditiveSubstraction(a common.SecretNumber, b common.SecretNumber) (common.
 		return sum, errors.New("invalid number of participants in given samples")
 	}
 	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares() ; i++ {
-		sum.shares[i] = a.Split(i)-b.Split(i)
+	for i := 0; i < a.MinShares(); i++ {
+		sum.shares[i] = a.Split(i) - b.Split(i)
 	}
 	return sum, nil
 }
@@ -45,8 +45,8 @@ func AdditiveDivision(a common.SecretNumber, b common.SecretNumber) (common.Secr
 		return sum, errors.New("invalid number of participants in given samples")
 	}
 	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares() ; i++ {
-		d := float64(a.Split(i))/float64(b.Split(i))
+	for i := 0; i < a.MinShares(); i++ {
+		d := float64(a.Split(i)) / float64(b.Split(i))
 		sum.shares[i] = int(math.Round(d * 10000000000000000))
 	}
 	return sum, nil
