@@ -14,6 +14,7 @@ import (
 
 const (
 	defaultPrimeNumber = "13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006083221"
+	zeroAscii = 48
 )
 
 var (
@@ -211,10 +212,17 @@ func Mod(x, y int) int {
 
 // Calculates whether given number is prime or not
 func IsPrime(value int) bool {
-	for i := 2; i <= int(math.Floor(float64(value) / 2)); i++ {
+	for i := 2; i <= int(math.Floor(math.Sqrt(float64(value)))); i++ {
 		if value%i == 0 {
 			return false
 		}
 	}
 	return value > 1
+}
+
+// Calculates whether given big number string decimal representation is prime or not
+func IsPrimeBig(primeStr string) bool {
+	z := new(big.Int)
+	z.SetString(primeStr, 10)
+	return z.ProbablyPrime(20)
 }
