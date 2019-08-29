@@ -14,7 +14,7 @@ import (
 
 const (
 	defaultPrimeNumber = "13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006083221"
-	zeroAscii = 48
+	zeroAscii          = 48
 )
 
 var (
@@ -222,6 +222,10 @@ func IsPrime(value int) bool {
 
 // Calculates whether given big number string decimal representation is prime or not
 func IsPrimeBig(primeStr string) bool {
+	lastDigit := primeStr[len(primeStr)-1]
+	if lastDigit == zeroAscii || lastDigit == zeroAscii+2 || lastDigit == zeroAscii+5 {
+		return false
+	}
 	z := new(big.Int)
 	z.SetString(primeStr, 10)
 	return z.ProbablyPrime(20)

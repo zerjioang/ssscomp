@@ -23,8 +23,8 @@ func BenchmarkIsPrime(b *testing.B) {
 	})
 }
 
-// BenchmarkIsPrimeBig/is-prime-true-12         	    2000	    603715 ns/op	   0.00 MB/s	   33056 B/op	     468 allocs/op
-// BenchmarkIsPrimeBig/is-prime-false-12        	 1000000	      1206 ns/op	   0.83 MB/s	      88 B/op	       3 allocs/op
+// BenchmarkIsPrimeBig/is-prime-true-12         	    2000	    602388 ns/op	   0.00 MB/s	   33056 B/op	     468 allocs/op
+// BenchmarkIsPrimeBig/is-prime-false-12        	300000000	         5.80 ns/op	 172.42 MB/s	       0 B/op	       0 allocs/op	       3 allocs/op
 func BenchmarkIsPrimeBig(b *testing.B) {
 	b.Run("is-prime-true", func(b *testing.B) {
 		b.ReportAllocs()

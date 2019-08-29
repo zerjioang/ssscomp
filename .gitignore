@@ -1,6 +1,7 @@
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 *.o
 *.a
+*.h
 *.so
 
 # Folders
@@ -24,3 +25,4 @@ _testmain.go
 *.test
 *.prof
 vendor
+**/__pycache__

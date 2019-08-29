@@ -26,16 +26,7 @@ func getGP(size string) (g, p *big.Int) {
 	return
 }
 
-type PublicKey struct {
-	G, P, Y *big.Int
-}
-
-type PrivateKey struct {
-	PublicKey
-	X *big.Int
-}
-
-func Encrypt(random io.Reader, pub *PublicKey, msg string) (a, b *big.Int, err error) {
+func Encrypt1(random io.Reader, pub *PublicKey1, msg string) (a, b *big.Int, err error) {
 	k, _ := rand.Int(random, pub.P)
 	m, _ := new(big.Int).SetString(msg, 10)
 	a = new(big.Int).Exp(pub.G, k, pub.P)
@@ -45,7 +36,7 @@ func Encrypt(random io.Reader, pub *PublicKey, msg string) (a, b *big.Int, err e
 	return
 }
 
-func Decrypt(priv *PrivateKey, a, b *big.Int) (msg []byte, err error) {
+func Decrypt1(priv *PrivateKey1, a, b *big.Int) (msg []byte, err error) {
 	s := new(big.Int).Exp(a, priv.X, priv.P)
 	s.ModInverse(s, priv.P)
 	s.Mul(s, b)
@@ -83,8 +74,8 @@ func TestPailier(t *testing.T) {
 
 		g, p := getGP(plen)
 
-		priv := &PrivateKey{
-			PublicKey: PublicKey{
+		priv := &PrivateKey1{
+			PublicKey1: PublicKey1{
 				G: g,
 				P: p,
 			},
@@ -93,14 +84,14 @@ func TestPailier(t *testing.T) {
 
 		priv.Y = new(big.Int).Exp(priv.G, priv.X, priv.P)
 
-		a1, b1, _ := Encrypt(rand.Reader, &priv.PublicKey, val1)
-		a2, b2, _ := Encrypt(rand.Reader, &priv.PublicKey, val2)
+		a1, b1, _ := Encrypt1(rand.Reader, &priv.PublicKey1, val1)
+		a2, b2, _ := Encrypt1(rand.Reader, &priv.PublicKey1, val2)
 
-		message2, _ := Decrypt(priv, a1.Mul(a1, a2), b1.Mul(b1, b2))
+		message2, _ := Decrypt1(priv, a1.Mul(a1, a2), b1.Mul(b1, b2))
 
 		fmt.Printf("\nValues (val1=%s and val2=%s)\n", val1, val2)
 		fmt.Printf("\nPrivate key (x):\nX=%d", priv.X)
-		fmt.Printf("\nPublic key (Y,G,P):\nY=%d\nG=%d\nP=%d", priv.Y, priv.PublicKey.G, priv.PublicKey.P)
+		fmt.Printf("\nPublic key (Y,G,P):\nY=%d\nG=%d\nP=%d", priv.Y, priv.PublicKey1.G, priv.PublicKey1.P)
 
 		fmt.Printf("\nCipher (a1=%s)\n\n(b1=%s): ", a1, b1)
 		fmt.Printf("\nDecrypted: %d", valint(message2))
@@ -119,8 +110,8 @@ func TestPailier(t *testing.T) {
 
 		g, p := getGP(plen)
 
-		priv := &PrivateKey{
-			PublicKey: PublicKey{
+		priv := &PrivateKey1{
+			PublicKey1: PublicKey1{
 				G: g,
 				P: p,
 			},
@@ -129,17 +120,17 @@ func TestPailier(t *testing.T) {
 
 		priv.Y = new(big.Int).Exp(priv.G, priv.X, priv.P)
 
-		a1, b1, _ := Encrypt(rand.Reader, &priv.PublicKey, val1)
-		a2, b2, _ := Encrypt(rand.Reader, &priv.PublicKey, val2)
+		a1, b1, _ := Encrypt1(rand.Reader, &priv.PublicKey1, val1)
+		a2, b2, _ := Encrypt1(rand.Reader, &priv.PublicKey1, val2)
 
 		a2 = a2.ModInverse(a2, priv.P)
 		b2 = b2.ModInverse(b2, priv.P)
 
-		message2, _ := Decrypt(priv, a1.Mul(a1, a2), b1.Mul(b1, b2))
+		message2, _ := Decrypt1(priv, a1.Mul(a1, a2), b1.Mul(b1, b2))
 
 		fmt.Printf("\nValues (val1=%s and val2=%s)\n", val1, val2)
 		fmt.Printf("\nPrivate key (x):\nX=%d", priv.X)
-		fmt.Printf("\nPublic key (Y,G,P):\nY=%d\nG=%d\nP=%d", priv.Y, priv.PublicKey.G, priv.PublicKey.P)
+		fmt.Printf("\nPublic key (Y,G,P):\nY=%d\nG=%d\nP=%d", priv.Y, priv.PublicKey1.G, priv.PublicKey1.P)
 
 		fmt.Printf("\nCipher (a1=%s)\n\n(b1=%s): ", a1, b1)
 		fmt.Printf("\nDecrypted: %d", valint(message2))
