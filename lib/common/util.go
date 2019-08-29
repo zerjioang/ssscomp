@@ -230,3 +230,14 @@ func IsPrimeBig(primeStr string) bool {
 	z.SetString(primeStr, 10)
 	return z.ProbablyPrime(20)
 }
+
+// Computes the GCD of two big ints
+func GCD(a, b *big.Int) big.Int {
+	t := big.NewInt(0)
+	zero := big.NewInt(0)
+	for b.Cmp(zero) != 0 {
+		t.Rem(a, b)
+		a, b, t = b, t, a
+	}
+	return *a
+}

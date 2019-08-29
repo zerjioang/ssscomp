@@ -3,7 +3,7 @@ from lib import SSS
 
 def run_test():
     print("executing test program")
-    
+
     # access to shared module via singleton pattern
     secure_mod = SSS()
 

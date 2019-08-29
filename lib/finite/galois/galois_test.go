@@ -2,6 +2,7 @@ package galois
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
 )
@@ -15,42 +16,48 @@ var testpoly2 = GfPoly{
 
 // TestGF tests GF(x)
 func TestGF(t *testing.T) {
+	t.Run("gf-0", func(t *testing.T) {
+		// test 0
+		gfpoly, err := GF(0)
+		assert.NoError(t, err)
+		assert.NotNil(t, gfpoly)
+	})
+	t.Run("gf-1", func(t *testing.T) {
+		var gf uint8
+		// test 1
+		gfpoly, err := GF(1)
+		assert.NoError(t, err)
+		assert.NotNil(t, gfpoly)
 
-	var gf uint8
-
-	// test 0
-	gfpoly, err := GF(0)
-	if err == nil {
-		t.Error("GF(0) should rise error")
-	}
-	// test 1
-	gfpoly, err = GF(1)
-	if err == nil {
-		t.Error("GF(1) should rise error")
-	}
-	// test overflow
-	gf = MaxGF + 1
-	gfpoly, err = GF(gf)
-	if err == nil {
-		t.Error("GF(", gf, ") should rise error")
-	}
-	// test limit
-	gf = MaxGF
-	gfpoly, err = GF(gf)
-	if err != nil {
-		t.Error("GF(", gf, ") shouldn't rise error")
-	}
-	// test 2
-	gf = 2
-	gfpoly, err = GF(gf)
-	if err != nil {
-		t.Error("GF(", gf, ") shouldn't rise error")
-	}
-	if !reflect.DeepEqual(&testpoly2, gfpoly) {
-		fmt.Printf("testpoly2: %+v\n", testpoly2)
-		fmt.Printf("gfpoly: %+v\n", gfpoly)
-		t.Error("GF(", gf, ") is not good :c")
-	}
+		// test overflow
+		gf = MaxComputableGaloisField + 1
+		gfpoly, err = GF(gf)
+		assert.NoError(t, err)
+		// test limit
+		gf = MaxComputableGaloisField
+		gfpoly, err = GF(gf)
+		assert.NoError(t, err)
+	})
+	t.Run("gf-2", func(t *testing.T) {
+		gfpoly, err := GF(2)
+		assert.NoError(t, err)
+		assert.NotNil(t, gfpoly)
+		// test 2
+		if !reflect.DeepEqual(&testpoly2, gfpoly) {
+			fmt.Printf("testpoly2: %+v\n", testpoly2)
+			fmt.Printf("gfpoly: %+v\n", gfpoly)
+			t.Error("GF(", 2, ") is not good :c")
+		}
+	})
+	t.Run("gf-2-operations", func(t *testing.T) {
+		gfpoly, err := GF(2)
+		assert.NoError(t, err)
+		assert.NotNil(t, gfpoly)
+		result, err := gfpoly.Mul(111, 101)
+		assert.NoError(t, err)
+		assert.NotNil(t, result)
+		assert.Equal(t, result, 11011)
+	})
 }
 
 //TestMul tests mul

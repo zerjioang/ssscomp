@@ -1,6 +1,6 @@
 <p align="center">
   <img alt="s3go" src="docs/header.png" width="auto"></img>
-  <h3 align="center"><b>Secret Sharing Library for Go</b></h3>
+  <h3 align="center"><b>Secret Sharing & Secure Computation Library for Go</b></h3>
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
     </a>
 </p>
 
-Package **s3go** is a High Performance, Pure Go Secret Sharing Library
+Package **s3go** is a High Performance, Pure Go Secret Sharing & Secure Computation Library
 
 ## Install
 
@@ -32,11 +32,13 @@ Licensed under the MIT License.
 go get github.com/zerjioang/s3go
 ```
 
-## Description
+## Secret Sharing
+
+### Description
 
 The most common examples of finite fields are given by the integers mod p when p is a prime number. 
 
-## Packed sharing
+### Packed sharing
 If many secrets are to be secret shared, it may be beneficial to use the packed scheme where several secrets are packed into each share. While still very computational efficient, one downside is that the parameters are somewhat restricted.
 
 Specifically, the parameters are split in *scheme parameters* and *implementation parameters*:
@@ -50,13 +52,17 @@ Due to this increased complexity, providing helper functions for finding suitabl
 with format `PSS_T_N_D` for sharing `D` secrets into `N` shares with a threshold of `T`.
 
 
-## Homomorphic properties
+### Homomorphic properties
 Both the Shamir and the packed scheme enjoy certain homomorphic properties: shared secrets can be transformed by manipulating the shares. Both addition and multiplications work, yet notice that the reconstruction limit in the case of multiplication goes up by a factor of two for each application.
 
-## Other SSS Implementations
+### Other SSS Implementations
 * https://github.com/itslab-kyushu/sss
 * https://github.com/amousa11/sss
 * https://github.com/sam701/secret-sharing
+
+## References
+
+* https://asecuritysite.com/encryption
 
 ## License
 

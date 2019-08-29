@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"math/big"
+	"testing"
 )
 
 // This example demonstrates basic usage of this library.
@@ -12,9 +13,33 @@ import (
 //   * Homomorphic cipher text addition
 //   * Homomorphic addition with constant
 //   * Homomorphic multiplication with constant
-func ExamplePaillier() {
+func TestFullPaillier(t *testing.T) {
+	t.Run("128-bits-key", func(t *testing.T) {
+		runPaillier(128)
+	})
+	t.Run("192-bits-key", func(t *testing.T) {
+		runPaillier(192)
+	})
+	t.Run("256-bits-key", func(t *testing.T) {
+		runPaillier(256)
+	})
+	t.Run("512-bits-key", func(t *testing.T) {
+		runPaillier(512)
+	})
+	t.Run("1024-bits-key", func(t *testing.T) {
+		runPaillier(1024)
+	})
+	t.Run("2048-bits-key", func(t *testing.T) {
+		runPaillier(2048)
+	})
+	t.Run("4096-bits-key", func(t *testing.T) {
+		runPaillier(4096)
+	})
+}
+
+func runPaillier(keySize int) {
 	// Generate a 128-bit private key.
-	privKey, err := GenerateKey(rand.Reader, 128)
+	privKey, err := GenerateKey(rand.Reader, keySize)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -53,8 +78,7 @@ func ExamplePaillier() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("Result of 15+20 after decryption: ",
-		new(big.Int).SetBytes(decryptedAddition).String()) // 35
+	fmt.Println("Result of 15+20 after decryption: ", new(big.Int).SetBytes(decryptedAddition).String()) // 35
 
 	// Add the encrypted integer 15 to plaintext constant 10.
 	plusE15and10 := Add(&privKey.PublicKey2, c15, new(big.Int).SetInt64(10).Bytes())
@@ -63,8 +87,7 @@ func ExamplePaillier() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("Result of 15+10 after decryption: ",
-		new(big.Int).SetBytes(decryptedAddition).String()) // 25
+	fmt.Println("Result of 15+10 after decryption: ", new(big.Int).SetBytes(decryptedAddition).String()) // 25
 
 	// Multiply the encrypted integer 15 by the plaintext constant 10.
 	mulE15and10 := Mul(&privKey.PublicKey2, c15, new(big.Int).SetInt64(10).Bytes())
@@ -73,6 +96,5 @@ func ExamplePaillier() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("Result of 15*10 after decryption: ",
-		new(big.Int).SetBytes(decryptedMul).String()) // 150
+	fmt.Println("Result of 15*10 after decryption: ", new(big.Int).SetBytes(decryptedMul).String()) // 150
 }

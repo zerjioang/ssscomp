@@ -3,39 +3,40 @@ package simple
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/zerjioang/s3go/lib/common"
 	"testing"
 )
 
 func TestAdditiveShare(t *testing.T) {
 	t.Run("3-participant-split", func(t *testing.T) {
-		result, err := SimpleAdditiveSecret(123456789, 3)
-		assert.NotNil(t, result)
+		n1, err := SimpleAdditiveSecret(123456789, 3)
+		assert.NotNil(t, n1)
 		assert.Nil(t, err)
-		fmt.Println(result)
+		fmt.Println(n1)
 
 		//get shares for different participants
-		alice, err := result.Next()
+		alice, err := n1.Next()
 		assert.NotNil(t, alice)
 		assert.Nil(t, err)
 		fmt.Println(alice)
 
-		bob, err := result.Next()
+		bob, err := n1.Next()
 		assert.NotNil(t, bob)
 		assert.Nil(t, err)
 		fmt.Println(bob)
 
-		mike, err := result.Next()
+		mike, err := n1.Next()
 		assert.NotNil(t, mike)
 		assert.Nil(t, err)
 		fmt.Println(mike)
 
 		// since there are no more participants, next share request should fail
-		charlie, err := result.Next()
+		charlie, err := n1.Next()
 		assert.NotNil(t, charlie)
 		assert.NotNil(t, err)
 
-		assert.True(t, result.Reconstruct(123456789))
-		assert.False(t, result.Reconstruct(00112233))
+		assert.True(t, n1.Reconstruct([]common.Share{alice, bob, mike}))
+		assert.False(t, n1.Reconstruct([]common.Share{alice, bob, mike}))
 	})
 	t.Run("3-participant-homomorphic-negation", func(t *testing.T) {
 		// this test will compute a very basic homomorphic addition of two encrypted (unknown) values
@@ -98,6 +99,29 @@ func TestAdditiveShare(t *testing.T) {
 		t.Log(c)
 		raw, _ := a.Json(0)
 		t.Log(string(raw))
+	})
+	t.Run("2-homomorphic-mean", func(t *testing.T) {
+		n1, _ := SimpleAdditiveSecret(50000, 3)
+		n2, _ := SimpleAdditiveSecret(20000, 3)
+
+		t.Log(n1)
+		t.Log(n2)
+
+		//get shares for different participants
+		alice1, _ := n1.Next()
+		bob1, _ := n1.Next()
+		mike1, _ := n1.Next()
+
+		alice2, _ := n2.Next()
+		bob2, _ := n2.Next()
+		mike2, _ := n2.Next()
+
+		// each of the participants calculates the mean value
+		t.Log("alice mean: ", alice2)
+		t.Log("bob mean: ", bob2)
+		t.Log("mike mean: ", mike2)
+
+		t.Log(n1.Reconstruct([]common.Share{alice1, bob1, mike1}))
 	})
 	t.Run("2-participant-example", func(t *testing.T) {
 		// this test will compute a very basic homomorphic addition of two encrypted (unknown) values

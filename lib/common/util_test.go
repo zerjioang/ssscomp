@@ -121,8 +121,6 @@ func TestIsPrime(t *testing.T) {
 		v := IsPrime(592390)
 		assert.False(t, v)
 	})
-}
-func TestIsPrimeBig(t *testing.T) {
 	t.Run("is-prime-big-true", func(t *testing.T) {
 		v := IsPrimeBig("170141183460469231731687303715884105727")
 		assert.True(t, v)
@@ -130,5 +128,9 @@ func TestIsPrimeBig(t *testing.T) {
 	t.Run("is-prime-big-false", func(t *testing.T) {
 		v := IsPrimeBig("1701411834604692317316873037158841057270")
 		assert.False(t, v)
+	})
+	t.Run("gdc", func(t *testing.T) {
+		r := GCD(big.NewInt(180), big.NewInt(12085410))
+		assert.Equal(t, r.String(), "30")
 	})
 }

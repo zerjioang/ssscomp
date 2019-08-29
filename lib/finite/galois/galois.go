@@ -2,12 +2,14 @@ package galois
 
 import "errors"
 
-// MaxGF is the maximum GF(x)
+// MaxComputableGaloisField is the maximum GF(x)
 // default 24, up to 31 if you have petabytes of ram :p
-const MaxGF = 24
+const (
+	MaxComputableGaloisField = 24
+)
 
 var primPoly = []uint32{
-	0,
+	/*  0 */ 0,
 	/*  1 */ 1,
 	/*  2 */ 07,
 	/*  3 */ 013,
@@ -42,6 +44,10 @@ var primPoly = []uint32{
 	/* 32 */ /* 040020000007, overflow */
 }
 
+var (
+	errOutOfRange = errors.New("prime polynomial out of range")
+)
+
 // GfPoly is Polynomial struct
 type GfPoly struct {
 	base   uint8
@@ -50,7 +56,7 @@ type GfPoly struct {
 	gfilog []uint32
 }
 
-var gfPolyInstance = make([]*GfPoly, MaxGF+1)
+var gfPolyInstance = make([]*GfPoly, MaxComputableGaloisField+1)
 
 func newGF(base uint8) (*GfPoly, error) {
 
@@ -58,8 +64,8 @@ func newGF(base uint8) (*GfPoly, error) {
 	var poly *GfPoly
 
 	poly = new(GfPoly)
-	if base < 2 || base > MaxGF {
-		return nil, errors.New("Prim polynomial out of range")
+	if base < 2 || base > MaxComputableGaloisField {
+		return nil, errOutOfRange
 	}
 	poly.base = base
 	poly.NW = 1 << base
@@ -80,15 +86,15 @@ func newGF(base uint8) (*GfPoly, error) {
 
 // GF is a singleton getter for new GfPoly struct
 func GF(base uint8) (*GfPoly, error) {
-	var error error
+	var e error
 
-	if base < 2 || base > MaxGF {
-		return nil, errors.New("Prim polynomial out of range")
+	if base < 2 || base > MaxComputableGaloisField {
+		return nil, errOutOfRange
 	}
 	if gfPolyInstance[base] == nil {
-		gfPolyInstance[base], error = newGF(base)
+		gfPolyInstance[base], e = newGF(base)
 	}
-	return gfPolyInstance[base], error
+	return gfPolyInstance[base], e
 }
 
 // Mul is GfPoly struct method for multiplication
@@ -97,7 +103,7 @@ func (table *GfPoly) Mul(a, b uint32) (uint32, error) {
 		return 0, nil
 	}
 	if a >= table.NW || b >= table.NW {
-		return 0, errors.New("mul: polynomial out of range")
+		return 0, errOutOfRange
 	}
 	sumLog := table.gflog[a] + table.gflog[b]
 	if sumLog >= table.NW-1 {
@@ -116,7 +122,7 @@ func (table *GfPoly) Div(a, b uint32) (uint32, error) {
 		return 0, nil
 	}
 	if a >= table.NW || b >= table.NW {
-		return 0, errors.New("div: polynomial out of range")
+		return 0, errOutOfRange
 	}
 	diffLog = int64(table.gflog[a]) - int64(table.gflog[b])
 	if diffLog < 0 {

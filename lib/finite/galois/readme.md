@@ -8,6 +8,21 @@ Short version: an element of GF(2**8) element may be represented as a byte (0 â‰
 
 Finite fields -- and GF(2**8) in particular -- get a ton of use in codes, in both the "error-correcting code" and "cryptographic code" senses. However, this implementation has NOT been hardened against timing attacks, so it MUST NOT be used in cryptography.
 
+## Computing fields
+
+Get instance of your desired GF(x)
+
+```go
+gf, err := galois.GF(8)
+```
+
+And make modulu based computations like:
+
+```go
+mul, err := gf.Mul(3, 4)
+div, err := gf.Div(6, 43)
+expon, err := gf.Expon(34, 9001)
+```
 ## Other implementations
 
 * https://github.com/betawaffle/gf256

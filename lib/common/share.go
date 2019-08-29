@@ -22,3 +22,7 @@ func NewSharePtr(v int) *Share {
 func (s Share) String() string {
 	return fmt.Sprintf("share: %d", s.v)
 }
+
+func (s Share) Value() int {
+	return s.v
+}

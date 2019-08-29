@@ -61,20 +61,20 @@ func NewSimpleAdditiveScheme(participants int) *SimpleAdditiveScheme {
 // That the secret remains hidden as long as at most T = N - 1 shareholders
 // collaborate follows from the marginal distribution of the view of up to T shareholders
 // being independent of the secret.
-func (as *SimpleAdditiveScheme) Reconstruct(secret int) bool {
+func (as *SimpleAdditiveScheme) Reconstruct(shares []int) int {
 	if as != nil {
 		var reconstructed int
-		for i := 0; i < len(as.shares); i++ {
-			reconstructed += as.shares[i]
+		for i := 0; i < len(shares); i++ {
+			reconstructed += shares[i]
 		}
 		fmt.Println(reconstructed)
-		return reconstructed == secret
+		return reconstructed
 	}
-	return false
+	return 0
 }
 
 func (as *SimpleAdditiveScheme) String() string {
-	return fmt.Sprintf("simple sharing scheme: N=%d, R=%d, T=%d, K=%d", as.N, as.R, as.T, as.K)
+	return fmt.Sprintf("simple sharing scheme: N=%d, R=%d, T=%d, K=%d [%+v]", as.N, as.R, as.T, as.K, as.shares)
 }
 
 // converts current scheme to json only revealing specified share
@@ -124,7 +124,7 @@ func SimpleAdditiveSecret(secret int, participants int) (common.SecretNumber, er
 	var sum int
 	for i := 0; i < int(participants-1); i++ {
 		// simply pick values at random from x1, x2, x3, x4, ...x(n-1)
-		ret.shares[i] = common.RandomInt() // RandomInRange(10,20)
+		ret.shares[i] = common.RandomInRange(2, 200) //common.RandomInt()
 		sum += ret.shares[i]
 	}
 	// set final value to x(n-1) = x - x1 - x2 - x3 - x4
