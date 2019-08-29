@@ -1,4 +1,5 @@
 import os
+import sys
 from ctypes import *
 
 # shared library version
@@ -39,7 +40,7 @@ def info():
 def load_library():
     info()
     dirname = os.path.dirname(__file__)
-    so_name = '{dn}/../../lib/wrapper/secure_computation_s3go_{version}.so'
+    so_name = '{dn}/../../lib/wrapper/secure_computation_ssscomp_{version}.so'
     shared_object = so_name.format(dn=dirname, version=shared_lib_version)
     print("so file = ", shared_object)
     try:
@@ -62,9 +63,15 @@ def load_library():
     except FileNotFoundError:
         print(notfound_msg)
         secure_computation_module = None
+        print("fatal error: secure_computation_module not found", file=sys.stderr)
+        exit(127)
     except ModuleNotFoundError:
         print(notfound_msg)
         secure_computation_module = None
+        print("fatal error: secure_computation_module not found", file=sys.stderr)
+        exit(127)
     except Exception:
         secure_computation_module = None
+        print("fatal error: secure_computation_module not found", file=sys.stderr)
+        exit(127)
     return None

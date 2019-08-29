@@ -2,7 +2,7 @@ package shamir
 
 import (
 	"errors"
-	"github.com/zerjioang/s3go/lib/common"
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 /*

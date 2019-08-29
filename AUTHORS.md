@@ -1,5 +1,5 @@
 # Authors
 
-This is the official list of [s3go](https://github.com/zerjioang/s3go) authors for copyright purposes.
+This is the official list of [ssscomp](https://github.com/zerjioang/ssscomp) authors for copyright purposes.
 
 * zerjioang <zerjioang@users.noreply.github.com>

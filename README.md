@@ -1,24 +1,24 @@
 <p align="center">
-  <img alt="s3go" src="docs/header.png" width="auto"></img>
+  <img alt="ssscomp" src="docs/header.png" width="auto"></img>
   <h3 align="center"><b>Secret Sharing & Secure Computation Library for Go</b></h3>
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/zerjioang/s3go">
-      <img alt="Build Status" src="https://travis-ci.org/zerjioang/s3go.svg?branch=master">
+    <a href="https://travis-ci.org/zerjioang/ssscomp">
+      <img alt="Build Status" src="https://travis-ci.org/zerjioang/ssscomp.svg?branch=master">
     </a>
-    <a href="https://goreportcard.com/report/github.com/zerjioang/s3go">
-       <img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/zerjioang/s3go">
+    <a href="https://goreportcard.com/report/github.com/zerjioang/ssscomp">
+       <img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/zerjioang/ssscomp">
     </a>
-    <a href="https://github.com/zerjioang/s3go/blob/master/LICENSE">
+    <a href="https://github.com/zerjioang/ssscomp/blob/master/LICENSE">
         <img alt="Software License" src="http://img.shields.io/:license-GPL3-brightgreen.svg?style=flat-square">
     </a>
-    <a href="https://godoc.org/github.com/zerjioang/s3go">
-       <img alt="Build Status" src="https://godoc.org/github.com/zerjioang/s3go?status.svg">
+    <a href="https://godoc.org/github.com/zerjioang/ssscomp">
+       <img alt="Build Status" src="https://godoc.org/github.com/zerjioang/ssscomp?status.svg">
     </a>
 </p>
 
-Package **s3go** is a High Performance, Pure Go Secret Sharing & Secure Computation Library
+Package **ssscomp** is a High Performance, Pure Go Secret Sharing & Secure Computation Library
 
 ## Install
 
@@ -29,7 +29,7 @@ Licensed under the MIT License.
 ```
 
 ```bash
-go get github.com/zerjioang/s3go
+go get github.com/zerjioang/ssscomp
 ```
 
 ## Secret Sharing

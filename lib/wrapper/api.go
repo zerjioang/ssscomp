@@ -1,4 +1,4 @@
-//go build -buildmode=c-shared -o secure_computation_s3go_0.1.so api.go
+//go build -buildmode=c-shared -o secure_computation_ssscomp_0.1.so api.go
 
 //libadd.go
 package main
@@ -35,7 +35,13 @@ func version() float64 {
 //export Add
 func Add(a, b int) int { return a + b }
 
-func example(path *C.char) {
+//export new_smpc_additive
+func new_smpc_additive(participants C.int) {
+
+}
+
+//export new_smpc_shamir
+func new_smpc_shamir(participants C.int, minimum C.int) {
 
 }
 

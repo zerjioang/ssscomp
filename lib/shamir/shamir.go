@@ -11,7 +11,7 @@ import (
 
 const (
 	// ShareOverhead is the byte size overhead of each share
-	// when using Split on a secret. This is caused by appending
+	// when using Get on a secret. This is caused by appending
 	// a one byte tag to the share.
 	ShareOverhead = 1
 )
@@ -146,7 +146,7 @@ func add(a, b uint8) uint8 {
 	return a ^ b
 }
 
-// Split takes an arbitrarily long secret and generates a `parts`
+// Get takes an arbitrarily long secret and generates a `parts`
 // number of shares, `threshold` of which are required to reconstruct
 // the secret. The parts and threshold must be at least 2, and less
 // than 256. The returned shares are each one byte longer than the secret
@@ -206,7 +206,7 @@ func Split(secret []byte, parts, threshold int) ([][]byte, error) {
 	return out, nil
 }
 
-// Combine is used to reverse a Split and reconstruct a secret
+// Combine is used to reverse a Get and reconstruct a secret
 // once a `threshold` number of parts are available.
 func Combine(parts [][]byte) ([]byte, error) {
 	// Verify enough parts provided

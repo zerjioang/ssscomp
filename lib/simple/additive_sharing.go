@@ -1,10 +1,14 @@
 package simple
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/zerjioang/s3go/lib/common"
+	"github.com/zerjioang/ssscomp/lib/common"
+)
+
+var (
+	errMoreParticipantsRequired = errors.New("participant count must be bigger or equal than 2")
+	errSchemaNotDefined         = errors.New("schema not defined")
 )
 
 /*
@@ -32,7 +36,7 @@ SimpleAdditiveScheme is an n-out-of-n schema
 so allnshares arerequired to recover the secret.)
 */
 type SimpleAdditiveScheme struct {
-	common.SecretNumber `json:"_,omitempty"`
+	common.SecretSchema `json:"_,omitempty"`
 	// N: the number of shares that each secret is split into
 	N int `json:"n"`
 	// R: the minimum number of shares needed to reconstruct the secret
@@ -41,48 +45,46 @@ type SimpleAdditiveScheme struct {
 	// learning nothing about the secret, also known as the privacy threshold
 	T int `json:"t"`
 	// K: the number of secrets shared together
-	K            int `json:"k"`
-	shares       []int
-	CurrentShare int `json:"share"`
+	K int `json:"k"`
+	// Q limit of the finite space
+	Q int `json:"q"`
 }
 
-func NewSimpleAdditiveScheme(participants int) *SimpleAdditiveScheme {
+func NewSimpleAdditiveScheme(participants int) (common.SecretSchema, error) {
 	ret := new(SimpleAdditiveScheme)
+	if participants < 2 {
+		return nil, errMoreParticipantsRequired
+	}
 	ret.N = participants
 	ret.R = ret.N
 	ret.K = 1
 	ret.T = ret.R - ret.K
-	ret.shares = make([]int, participants)
-	return ret
-}
-
-// if all three shares are known then x
-// can be reconstructed by simply computing x1 + x2 + x3 + x(n+1)
-// That the secret remains hidden as long as at most T = N - 1 shareholders
-// collaborate follows from the marginal distribution of the view of up to T shareholders
-// being independent of the secret.
-func (as *SimpleAdditiveScheme) Reconstruct(shares []int) int {
-	if as != nil {
-		var reconstructed int
-		for i := 0; i < len(shares); i++ {
-			reconstructed += shares[i]
-		}
-		fmt.Println(reconstructed)
-		return reconstructed
-	}
-	return 0
+	// pick a random Q (the integers modulo a prime number)
+	ret.Q = common.RandomInRange(0, 5000000) + 1 // common.RandomInt()
+	return ret, nil
 }
 
 func (as *SimpleAdditiveScheme) String() string {
-	return fmt.Sprintf("simple sharing scheme: N=%d, R=%d, T=%d, K=%d [%+v]", as.N, as.R, as.T, as.K, as.shares)
+	return fmt.Sprintf("simple sharing scheme: N=%d, R=%d, T=%d, K=%d, Q=%d", as.N, as.R, as.T, as.K, as.Q)
 }
 
-// converts current scheme to json only revealing specified share
-func (as *SimpleAdditiveScheme) Json(split int) ([]byte, error) {
-	if split >= 0 && split < len(as.shares) {
-		as.CurrentShare = as.shares[split]
+// returns a random number inside following finite space: { 0, 1, ..., Q-1 } for a prime Q.
+func (as *SimpleAdditiveScheme) Random() int {
+	return common.RandomInRange(0, as.Q)
+}
+
+func (as *SimpleAdditiveScheme) Generate(secret int) (shares []common.Shareable) {
+	result := make([]common.Shareable, as.MinShares())
+	var sum int
+	for i := 0; i < int(as.N-1); i++ {
+		// simply pick values at random for x1, x2, x3, x4, ...x(n-1)
+		cv := as.Random()
+		result[i] = common.NewIntSharePtr(cv)
+		sum += cv
 	}
-	return json.Marshal(as)
+	// set final value to x(n-1) = x - x1 - x2 - x3 - x4
+	result[as.N-1] = common.NewIntSharePtr(secret - sum%as.Q)
+	return result
 }
 
 // return number of shared
@@ -94,40 +96,24 @@ func (as *SimpleAdditiveScheme) MinShares() int {
 	return as.R
 }
 
-// return number of participants
+// return number of participants required to decode the message M
 func (as *SimpleAdditiveScheme) PrivacyThreshold() int {
 	return as.T
 }
-func (as *SimpleAdditiveScheme) Split(idx int) int {
-	return as.shares[idx]
-}
 
-// returns specified share for given participant
-func (as *SimpleAdditiveScheme) Next() (common.Share, error) {
-	if as.CurrentShare >= 0 && as.CurrentShare < as.MinShares() {
-		cs := common.NewShare(as.shares[as.CurrentShare])
-		as.CurrentShare++
-		return cs, nil
+// if all three shares are known then x
+// can be reconstructed by simply computing x1 + x2 + x3 + x(n+1)
+// That the secret remains hidden as long as at most T = N - 1 shareholders
+// collaborate follows from the marginal distribution of the view of up to T shareholders
+// being independent of the secret.
+func (as *SimpleAdditiveScheme) Reconstruct(shares []common.Shareable) (common.Shareable, error) {
+	if as != nil {
+		reconstructed := shares[0].Copy()
+		reconstructed.Reset()
+		for i := 0; i < len(shares); i++ {
+			reconstructed, _ = reconstructed.Add(shares[i])
+		}
+		return reconstructed.Mod(as.Q)
 	}
-	return common.Share{}, errors.New("no more shares available")
-}
-
-func (as *SimpleAdditiveScheme) Explain(seenShares []int, guess int) {
-	// compute the unseen share that justifies the seen shares and the guess
-	//simulated_unseen_share := (guess - sum(seen_shares)) % q
-}
-
-// secret: the secret to be splitted among all N
-// N: number of N that will receive the secret
-func SimpleAdditiveSecret(secret int, participants int) (common.SecretNumber, error) {
-	ret := NewSimpleAdditiveScheme(participants)
-	var sum int
-	for i := 0; i < int(participants-1); i++ {
-		// simply pick values at random from x1, x2, x3, x4, ...x(n-1)
-		ret.shares[i] = common.RandomInRange(2, 200) //common.RandomInt()
-		sum += ret.shares[i]
-	}
-	// set final value to x(n-1) = x - x1 - x2 - x3 - x4
-	ret.shares[participants-1] = secret - sum
-	return ret, nil
+	return nil, errSchemaNotDefined
 }

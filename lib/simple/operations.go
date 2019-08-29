@@ -2,59 +2,47 @@ package simple
 
 import (
 	"errors"
-	"github.com/zerjioang/s3go/lib/common"
-	"math"
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
-func AdditiveAdd(a common.SecretNumber, b common.SecretNumber) (common.SecretNumber, error) {
-	sum := NewSimpleAdditiveScheme(a.Shares())
-	if a.Shares() != b.Shares() {
-		return sum, errors.New("invalid number of participants in given samples")
+func AdditiveAdd(a common.Shareable, b common.Shareable) (common.Shareable, error) {
+	if a == nil || b == nil {
+		return nil, errors.New("invalid number of shares provided")
 	}
-	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares(); i++ {
-		sum.shares[i] = a.Split(i) + b.Split(i)
-	}
-	return sum, nil
+	return a.Add(b)
 }
 
-func AdditiveNegation(a common.SecretNumber) common.SecretNumber {
-	sum := NewSimpleAdditiveScheme(a.Shares())
-	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares(); i++ {
-		sum.shares[i] = -a.Split(i)
+func AdditiveNegation(a common.Shareable) (common.Shareable, error) {
+	if a == nil {
+		return nil, errors.New("invalid number of shares provided")
 	}
-	return sum
+	return a.Neg()
 }
 
-func AdditiveSubstraction(a common.SecretNumber, b common.SecretNumber) (common.SecretNumber, error) {
-	sum := NewSimpleAdditiveScheme(a.Shares())
-	if a.Shares() != b.Shares() {
-		return sum, errors.New("invalid number of participants in given samples")
+func AdditiveSubstraction(a common.Shareable, b common.Shareable) (common.Shareable, error) {
+	if a == nil || b == nil {
+		return nil, errors.New("invalid number of shares provided")
 	}
-	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares(); i++ {
-		sum.shares[i] = a.Split(i) - b.Split(i)
-	}
-	return sum, nil
+	return a.Sub(b)
 }
 
-func AdditiveDivision(a common.SecretNumber, b common.SecretNumber) (common.SecretNumber, error) {
-	sum := NewSimpleAdditiveScheme(a.Shares())
-	if a.Shares() != b.Shares() {
-		return sum, errors.New("invalid number of participants in given samples")
+func AdditiveDivision(a common.Shareable, b common.Shareable) (common.Shareable, error) {
+	if a == nil || b == nil {
+		return nil, errors.New("invalid number of shares provided")
 	}
-	sum.shares = make([]int, a.MinShares())
-	for i := 0; i < a.MinShares(); i++ {
-		d := float64(a.Split(i)) / float64(b.Split(i))
-		sum.shares[i] = int(math.Round(d * 10000000000000000))
-	}
-	return sum, nil
+	return a.Div(b)
 }
-func AdditiveComparison(a common.SecretNumber, b common.SecretNumber) (common.SecretNumber, error) {
-	result, err := AdditiveSubstraction(a, b)
-	if err != nil {
-		return nil, err
+
+func AdditivePow(a common.Shareable, b int) (common.Shareable, error) {
+	if a == nil {
+		return nil, errors.New("invalid number of shares provided")
 	}
-	return result, nil
+	return a.Pow(b)
+}
+
+func AdditiveMul(a common.Shareable, b int) (common.Shareable, error) {
+	if a == nil {
+		return nil, errors.New("invalid number of shares provided")
+	}
+	return a.Mul(b)
 }

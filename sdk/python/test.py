@@ -1,11 +1,11 @@
-from lib import SSS
+from lib import SSSComp
 
 
 def run_test():
     print("executing test program")
 
     # access to shared module via singleton pattern
-    secure_mod = SSS()
+    secure_mod = SSSComp()
 
     # test 1: print current library version
     print("current library version is: ", secure_mod.version())

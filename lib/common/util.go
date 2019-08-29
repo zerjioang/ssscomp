@@ -10,6 +10,7 @@ import (
 	"math/big"
 	mrand "math/rand"
 	"strings"
+	"time"
 )
 
 const (
@@ -32,11 +33,13 @@ func GetDefaultPrimeNumber() *big.Int {
 
 // generates a random int in specified range
 func RandomInRange(min, max int) int {
+	mrand.Seed(time.Now().UnixNano())
 	return mrand.Intn(max-min) + min
 }
 
 // generates a random int
 func RandomInt() int {
+	mrand.Seed(time.Now().UnixNano())
 	return mrand.Int()
 }
 
