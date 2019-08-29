@@ -2,6 +2,7 @@ package common
 
 import (
 	"bytes"
+	"github.com/stretchr/testify/assert"
 	"math/big"
 	"testing"
 )
@@ -109,4 +110,15 @@ func TestEvaluatePolynomial(t *testing.T) {
 			t.Fatalf("Fatal: EvaluatePolynomial[%v] failed\nExpected: %v; Got: %v\n", i, actual[i], result)
 		}
 	}
+}
+
+func TestIsPrime(t *testing.T) {
+	t.Run("is-prime-true", func(t *testing.T) {
+		v := IsPrime(59239)
+		assert.True(t, v)
+	})
+	t.Run("is-prime-false", func(t *testing.T) {
+		v := IsPrime(592390)
+		assert.False(t, v)
+	})
 }
