@@ -32,6 +32,14 @@ Licensed under the MIT License.
 go get github.com/zerjioang/ssscomp
 ```
 
+## Features
+
+| Supported Features           	| Properties              	| Limitations 	| Reference papers 	|
+|------------------------------	|-------------------------	|-------------	|-----------------:	|
+| Additive Sharing schema      	| Secret Sharing for SMPC 	|             	|                  	|
+| Shamir secret sharing schema 	| Secret Sharing for SMPC 	|             	|                  	|
+| Unpadded RSA                 	| Homomorphic Encryption  	| `mul` only  	|                  	|
+
 ## Secret Sharing
 
 ### Description
