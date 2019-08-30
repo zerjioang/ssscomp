@@ -70,3 +70,6 @@ func DecryptUnpaddedRSA(priv *rsa.PrivateKey, ciphertext *big.Int) (*big.Int, er
 func BigIntAsHex(v *big.Int) string {
 	return fmt.Sprintf("%x", v) // or %X or upper case
 }
+func BigIntAsDecimal(v *big.Int) string {
+	return fmt.Sprintf("%d", v) // or %X or upper case
+}

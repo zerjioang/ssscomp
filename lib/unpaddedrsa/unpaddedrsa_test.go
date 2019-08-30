@@ -8,7 +8,7 @@ import (
 )
 
 func TestUnpaddedRsa(t *testing.T) {
-	t.Run("example", func(t *testing.T) {
+	t.Run("homomorphic-multiplication", func(t *testing.T) {
 
 		// generate key
 		priv, pub := GenerateKeyPair(1024)
@@ -31,12 +31,14 @@ func TestUnpaddedRsa(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, cipher1)
 		t.Log("encrypted x1: ", BigIntAsHex(cipher1))
+		t.Log("encrypted x1: ", BigIntAsDecimal(cipher1))
 
 		// unpadded RSA encrypted version of x2
 		cipher2, err := EncryptUnpaddedRSA(pub, b2)
 		assert.NoError(t, err)
 		assert.NotNil(t, cipher2)
 		t.Log("encrypted x2: ", BigIntAsHex(cipher2))
+		t.Log("encrypted x2: ", BigIntAsDecimal(cipher2))
 
 		// compute homomorphic multiplication over encrypted values cipher1 and cipher2
 		c12 := big.NewInt(int64(0))

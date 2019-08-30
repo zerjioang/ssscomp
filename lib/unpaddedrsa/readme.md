@@ -1,6 +1,8 @@
 #  Unpadded RSA
 ## Homomorphic Secure & Privacy Preserving computation
 
+> Note: RSA is only homomorphic over multiplication
+
 We show that the Unpadded RSA encryption scheme can be used a Partially Homomorphic Encryption scheme supporting multiplication in the encrypted domain.
 Given an RSA public key `(n,e)` and two plaintext `x1` and `x2` we observe:
 
@@ -36,3 +38,5 @@ func ExampleHomomorphicRsaMul(){
 	fmt.Println("decrypted value: ", plainMul)
 }
 ```
+
+> Note: Unpadded RSA usage (aka, simply taking the plaintext to an exponent) **is not secure for several reasons**. When security is necessary, we apply a padding scheme to the plaintext before encrypting it (aka, m becomes p(m) for some padding function p). But doing so causes the homomorphic usage to multiply the formatted plaintexts instead of the actual original plaintexts (aka, you wind up encrypting p(m1)∗p(m2) instead of m1∗m2), which won't yield the desired results. The padding schemes will completely mess up the ability to use homomorphic properties, since multiplying formatted texts yields garbage.

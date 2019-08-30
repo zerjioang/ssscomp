@@ -18,7 +18,7 @@
     </a>
 </p>
 
-Package **ssscomp** is a High Performance, Pure Go Secret Sharing & Secure Computation Library
+Package **ssscomp** is a High Performance, Pure Go Secret Sharing & Secure Computation Library including support for several HE (Homomorphic Encryption) algorithms
 
 ## Install
 
@@ -34,11 +34,13 @@ go get github.com/zerjioang/ssscomp
 
 ## Features
 
-| Supported Features           	| Properties              	| Limitations 	| Reference papers 	|
-|------------------------------	|-------------------------	|-------------	|-----------------:	|
-| Additive Sharing schema      	| Secret Sharing for SMPC 	|             	|                  	|
-| Shamir secret sharing schema 	| Secret Sharing for SMPC 	|             	|                  	|
-| Unpadded RSA                 	| Homomorphic Encryption  	| `mul` only  	|                  	|
+| Supported Features           	| Properties              	| Limitations       	| Reference papers 	|
+|-------------------------------|---------------------------|-----------------------|------------------:|
+| Additive Sharing schema      	| Secret Sharing for SMPC 	|                   	|                  	|
+| Shamir secret sharing schema 	| Secret Sharing for SMPC 	|                   	|                  	|
+| Unpadded RSA                 	| Homomorphic Encryption  	| `mul` only        	|                  	|
+| ElGamal                   	| Homomorphic Encryption  	| `add` only        	|                  	|
+| BGN Cryptosystem             	| Homomorphic Encryption  	| `mul`, `add` only  	|                  	|
 
 ## Secret Sharing
 
@@ -61,14 +63,25 @@ with format `PSS_T_N_D` for sharing `D` secrets into `N` shares with a threshold
 
 
 ### Homomorphic properties
+
 Both the Shamir and the packed scheme enjoy certain homomorphic properties: shared secrets can be transformed by manipulating the shares. Both addition and multiplications work, yet notice that the reconstruction limit in the case of multiplication goes up by a factor of two for each application.
 
 ### Other SSS Implementations
+
 * https://github.com/itslab-kyushu/sss
 * https://github.com/amousa11/sss
 * https://github.com/sam701/secret-sharing
 
 ## References
+
+* Efficient Integer Vector Homomorphic Encryption. Angel Yu, Wai Lok Lai, James Payor. (https://courses.csail.mit.edu/6.857/2015/files/yu-lai-payor.pdf)
+* Homomorphic Encryption and the BGN Cryptosystem. David Mandell Freeman (http://theory.stanford.edu/~dfreeman/cs259c-f11/lectures/bgn)
+* Converting Pairing-Based Cryptosystems from Composite-Order Groups to Prime-Order Groups. David Mandell Freeman. (http://theory.stanford.edu/~dfreeman/papers/subgroups.pdf, http://theory.stanford.edu/~dfreeman/talks/eurocrypt10.pdf)
+* Public Key Compression and Modulus Switching for FullyHomomorphic Encryption over the Integers. Jean-S ́ebastien Coron, David Naccache, and Mehdi Tibouchi (https://eprint.iacr.org/2011/440.pdf)
+* Fully Homomorphic Encryption over the Integers. Marten van Dijk and Craig Gentry and Shai Halevi and Vinod Vaikuntanathan (https://eprint.iacr.org/2009/616.pdf)
+* Somewhat Homomorphic Encryption Scheme for Arithmetic Operations on Large Integers. (https://www.gta.ufrj.br/ftp/gta/TechReports/PAD12.pdf)
+
+### Other references
 
 * https://asecuritysite.com/encryption
 

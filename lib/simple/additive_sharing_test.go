@@ -50,7 +50,8 @@ func TestAdditiveShare(t *testing.T) {
 
 		t.Log(y1, y2, y3)
 
-		//homomorphic addition of x+y
+		// created shares have homomorphic properties:
+		// so that we can execute the addition as of x+y
 		hsum1, _ := x1.Add(y1)
 		hsum2, _ := x2.Add(y2)
 		hsum3, _ := x3.Add(y3)
