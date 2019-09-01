@@ -18,7 +18,7 @@
     </a>
 </p>
 
-Package **ssscomp** is a High Performance, Pure Go Secret Sharing & Secure Computation Library including support for several HE (Homomorphic Encryption) algorithms
+Package **ssscomp** is a High Performance, Pure Go Secret Sharing & Secure Computation Library including support for several HE (Homomorphic Encryption) algorithms. It provides a Development Kit for Python too!
 
 ## Install
 
@@ -32,23 +32,35 @@ Licensed under the MIT License.
 go get github.com/zerjioang/ssscomp
 ```
 
+## Install for Python
+
+```bash
+Copyright (C) 2019 Sergio Anguita
+See Contributors.md for a complete list of contributors.  
+Licensed under the MIT License.  
+```
+
+
+This package is designed to be compatible with current Machine Learning frameworks such as: `pandas`, `keras` or `tensorflow`
+Use `pip install ssscomp` to download the package to you environment. Development Python SDK is provided with examples at [sdk/python/example](./sdk/python/example) 
+
 ## Features
 
 | Supported Features           	| Properties              	| Limitations       	| Reference papers 	|
 |-------------------------------|---------------------------|-----------------------|------------------:|
-| Additive Sharing schema      	| Secret Sharing for SMPC 	|                   	|                  	|
-| Shamir secret sharing schema 	| Secret Sharing for SMPC 	|                   	|                  	|
+| Additive Sharing Schema      	| Secret Sharing for SMPC 	|                   	|                  	|
+| Shamir Secret Sharing Schema 	| Secret Sharing for SMPC 	|                   	|                  	|
 | Unpadded RSA                 	| Homomorphic Encryption  	| `mul` only        	|                  	|
 | ElGamal                   	| Homomorphic Encryption  	| `add` only        	|                  	|
 | BGN Cryptosystem             	| Homomorphic Encryption  	| `mul`, `add` only  	|                  	|
 
-## Secret Sharing
+### Secret Sharing
 
-### Description
+#### Description
 
 The most common examples of finite fields are given by the integers mod p when p is a prime number. 
 
-### Packed sharing
+#### Packed sharing
 If many secrets are to be secret shared, it may be beneficial to use the packed scheme where several secrets are packed into each share. While still very computational efficient, one downside is that the parameters are somewhat restricted.
 
 Specifically, the parameters are split in *scheme parameters* and *implementation parameters*:
@@ -61,16 +73,24 @@ Due to this increased complexity, providing helper functions for finding suitabl
 
 with format `PSS_T_N_D` for sharing `D` secrets into `N` shares with a threshold of `T`.
 
-
-### Homomorphic properties
+#### Homomorphic properties
 
 Both the Shamir and the packed scheme enjoy certain homomorphic properties: shared secrets can be transformed by manipulating the shares. Both addition and multiplications work, yet notice that the reconstruction limit in the case of multiplication goes up by a factor of two for each application.
 
-### Other SSS Implementations
+#### Other SSS Implementations
 
 * https://github.com/itslab-kyushu/sss
 * https://github.com/amousa11/sss
 * https://github.com/sam701/secret-sharing
+
+### Homomorphic Encryption Algorithms
+
+This library has support for current homomorphic algorithms:
+
+* Unpadded RSA
+* ElGamal
+* Paillier
+* DGHV
 
 ## References
 
@@ -80,9 +100,11 @@ Both the Shamir and the packed scheme enjoy certain homomorphic properties: shar
 * Public Key Compression and Modulus Switching for FullyHomomorphic Encryption over the Integers. Jean-S ́ebastien Coron, David Naccache, and Mehdi Tibouchi (https://eprint.iacr.org/2011/440.pdf)
 * Fully Homomorphic Encryption over the Integers. Marten van Dijk and Craig Gentry and Shai Halevi and Vinod Vaikuntanathan (https://eprint.iacr.org/2009/616.pdf)
 * Somewhat Homomorphic Encryption Scheme for Arithmetic Operations on Large Integers. (https://www.gta.ufrj.br/ftp/gta/TechReports/PAD12.pdf)
+* Fully Homomorphic Encryption from Ring-LWEand Security for Key Dependent Messages. Zvika Brakerski and Vinod Vaikuntanathan (http://www.wisdom.weizmann.ac.il/~zvikab/localpapers/IdealHom.pdf) 
 
 ### Other references
 
+* http://cryptowiki.net/index.php?title=Fully_homomorphic_encryption_schemes
 * https://asecuritysite.com/encryption
 
 ## License

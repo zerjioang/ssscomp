@@ -3,7 +3,6 @@ package unpaddedrsa
 import (
 	"crypto/rsa"
 	"errors"
-	"fmt"
 	"math/big"
 )
 
@@ -65,11 +64,4 @@ func DecryptUnpaddedRSA(priv *rsa.PrivateKey, ciphertext *big.Int) (*big.Int, er
 	c := new(big.Int)
 	c.Exp(ciphertext, priv.D, priv.N)
 	return c, nil
-}
-
-func BigIntAsHex(v *big.Int) string {
-	return fmt.Sprintf("%x", v) // or %X or upper case
-}
-func BigIntAsDecimal(v *big.Int) string {
-	return fmt.Sprintf("%d", v) // or %X or upper case
 }

@@ -3,6 +3,7 @@ package unpaddedrsa
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
 	"testing"
 )
@@ -30,15 +31,15 @@ func TestUnpaddedRsa(t *testing.T) {
 		cipher1, err := EncryptUnpaddedRSA(pub, b1)
 		assert.NoError(t, err)
 		assert.NotNil(t, cipher1)
-		t.Log("encrypted x1: ", BigIntAsHex(cipher1))
-		t.Log("encrypted x1: ", BigIntAsDecimal(cipher1))
+		t.Log("encrypted x1: ", common.BigIntAsHex(cipher1))
+		t.Log("encrypted x1: ", common.BigIntAsDecimal(cipher1))
 
 		// unpadded RSA encrypted version of x2
 		cipher2, err := EncryptUnpaddedRSA(pub, b2)
 		assert.NoError(t, err)
 		assert.NotNil(t, cipher2)
-		t.Log("encrypted x2: ", BigIntAsHex(cipher2))
-		t.Log("encrypted x2: ", BigIntAsDecimal(cipher2))
+		t.Log("encrypted x2: ", common.BigIntAsHex(cipher2))
+		t.Log("encrypted x2: ", common.BigIntAsDecimal(cipher2))
 
 		// compute homomorphic multiplication over encrypted values cipher1 and cipher2
 		c12 := big.NewInt(int64(0))
@@ -66,11 +67,11 @@ func ExampleHomomorphicRsaMul() {
 
 	// unpadded RSA encrypted version of x1
 	cipher1, _ := EncryptUnpaddedRSA(pub, b1)
-	fmt.Println("encrypted x1: ", BigIntAsHex(cipher1))
+	fmt.Println("encrypted x1: ", common.BigIntAsHex(cipher1))
 
 	// unpadded RSA encrypted version of x2
 	cipher2, _ := EncryptUnpaddedRSA(pub, b2)
-	fmt.Println("encrypted x2: ", BigIntAsHex(cipher2))
+	fmt.Println("encrypted x2: ", common.BigIntAsHex(cipher2))
 
 	// compute homomorphic multiplication over encrypted values cipher1 and cipher2
 	c12 := big.NewInt(int64(0))

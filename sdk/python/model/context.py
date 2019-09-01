@@ -3,7 +3,7 @@ from enum import Enum
 
 class ContextType(Enum):
     """
-    List of supported Secure MUlti Party Computation secret sharing schemas
+    List of supported Secure Multi Party Computation secret sharing schemas
     """
     UNDEFINED = 0
     SMPC_ADDITIVE_SHARING = 1

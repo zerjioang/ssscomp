@@ -83,7 +83,8 @@ func (as *SimpleAdditiveScheme) Generate(secret int) (shares []common.Shareable)
 		sum += cv
 	}
 	// set final value to x(n-1) = x - x1 - x2 - x3 - x4
-	result[as.N-1] = common.NewIntSharePtr(secret - sum%as.Q)
+	last := (secret - sum) % as.Q
+	result[as.N-1] = common.NewIntSharePtr(last)
 	return result
 }
 
