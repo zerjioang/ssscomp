@@ -1,4 +1,6 @@
 from ctypes import *
+
+import wraps
 from loader import load_library
 
 
@@ -44,7 +46,10 @@ class SSSComp(object):
         ctx.shares = participants
         ctx.mode = ContextType.SMPC_ADDITIVE_SHARING
         # call shared library
-        self.shared_object.new_smpc_additive(participants)
+        self.shared_object.new_smpc_additive.argtypes = [c_int]
+        self.shared_object.new_smpc_additive.restype = wraps.SMPCAdditive
+        result = self.shared_object.new_smpc_additive(participants)
+        print(result)
         return ctx
 
     def new_smpc_shamir(self, participants: int, minimum: int) -> SecureContext:

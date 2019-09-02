@@ -1,5 +1,6 @@
 from ctypes import *
 
+
 # Calling shared_object from python
 #
 # The standard C numeric types are available under the names:
@@ -67,4 +68,22 @@ class GoSlice(Structure):
     _fields_ = [
         ("data", POINTER(c_void_p)),
         ("len", c_longlong), ("cap", c_longlong)
+    ]
+
+
+class GoInterface(Structure):
+    _fields_ = [
+        ("t", POINTER(c_void_p)),
+        ("v", POINTER(c_void_p))
+    ]
+
+
+class GoError(Structure):
+    _fields_ = [("p", c_char_p), ("n", c_longlong)]
+
+
+class SMPCAdditive(Structure):
+    _fields_ = [
+        ("r0", POINTER(c_void_p)),
+        ("r1", GoInterface)
     ]

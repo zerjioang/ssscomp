@@ -30,9 +30,10 @@ class SecureContext(object):
         self.mode = ContextType.UNDEFINED
         pass
 
-    def private_value(self, value):
+    def private_value(self, participant: int, value) -> int:
         """
         Return the private value for current context participant
+        :param participant: current participant index in current share
         :param value: plaintext value to be encoded using secret sharing algorithms
         :return: encrypted value as result of secret sharing calculation
         """

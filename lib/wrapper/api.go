@@ -4,7 +4,11 @@
 package main
 
 import "C"
-import "fmt"
+import (
+	"fmt"
+	"github.com/zerjioang/ssscomp/lib/simple"
+	"unsafe"
+)
 
 const (
 	v      = 0.1
@@ -36,8 +40,10 @@ func version() float64 {
 func Add(a, b int) int { return a + b }
 
 //export new_smpc_additive
-func new_smpc_additive(participants C.int) {
-
+func new_smpc_additive(participants C.int) uintptr {
+	fmt.Println("creating new spc additive schema")
+	sc, _ := simple.NewSimpleAdditiveScheme(int(participants))
+	return  uintptr(unsafe.Pointer(&sc))
 }
 
 //export new_smpc_shamir
