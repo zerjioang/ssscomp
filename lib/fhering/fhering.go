@@ -3,12 +3,8 @@ package fhering
 import (
 	"fmt"
 	"github.com/zerjioang/ssscomp/lib/common"
+	"github.com/zerjioang/ssscomp/lib/math"
 	"math/big"
-)
-
-var (
-	oneBig = big.NewInt(1)
-	twoBig = big.NewInt(2)
 )
 
 // Fully homomorphic encryption in ring of binary integers
@@ -40,9 +36,7 @@ func (schema *RingZtwo) Generate() error {
 	randomBig.SetBytes(raw)
 
 	// generate a 2n + 1. odd number
-	p := big.NewInt(0)
-	p.Mul(randomBig, twoBig)
-	p.Add(p, oneBig)
+	p := math.GenerateOddPrime(randomBig)
 
 	fmt.Println(common.BigIntAsDecimal(p))
 	schema.p = p

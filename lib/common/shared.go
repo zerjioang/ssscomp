@@ -25,3 +25,9 @@ type SecretSchema interface {
 	//generates schema shares
 	Generate(secret int) (shares []Shareable)
 }
+
+type HomomorphicSchema interface {
+	Generate() error
+	Encrypt()
+	Decrypt()
+}

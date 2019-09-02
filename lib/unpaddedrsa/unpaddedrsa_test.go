@@ -12,7 +12,7 @@ func TestUnpaddedRsa(t *testing.T) {
 	t.Run("homomorphic-multiplication", func(t *testing.T) {
 
 		// generate key
-		priv, pub := GenerateKeyPair(1024)
+		priv, pub, _ := GenerateKeyPair(1024)
 		assert.NotNil(t, priv)
 		assert.NotNil(t, pub)
 
@@ -56,7 +56,7 @@ func TestUnpaddedRsa(t *testing.T) {
 
 func ExampleHomomorphicRsaMul() {
 	// generate key
-	priv, pub := GenerateKeyPair(1024)
+	priv, pub, _ := GenerateKeyPair(1024)
 	// and given plain text x1 and x2
 	x1 := 200
 	x2 := 3

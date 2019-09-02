@@ -16,7 +16,7 @@ func BenchmarkUnpaddedRSA(b *testing.B) {
 		b.SetBytes(1)
 		b.ResetTimer()
 		for n := 0; n < b.N; n++ {
-			_, _ = GenerateKeyPair(1024)
+			_, _, _ = GenerateKeyPair(1024)
 		}
 	})
 	b.Run("generate-key-2048", func(b *testing.B) {
@@ -24,7 +24,7 @@ func BenchmarkUnpaddedRSA(b *testing.B) {
 		b.SetBytes(1)
 		b.ResetTimer()
 		for n := 0; n < b.N; n++ {
-			_, _ = GenerateKeyPair(2048)
+			_, _, _ = GenerateKeyPair(2048)
 		}
 	})
 	b.Run("generate-key-4096", func(b *testing.B) {
@@ -32,7 +32,7 @@ func BenchmarkUnpaddedRSA(b *testing.B) {
 		b.SetBytes(1)
 		b.ResetTimer()
 		for n := 0; n < b.N; n++ {
-			_, _ = GenerateKeyPair(4096)
+			_, _, _ = GenerateKeyPair(4096)
 		}
 	})
 	b.Run("1024k-encrypt", func(b *testing.B) {

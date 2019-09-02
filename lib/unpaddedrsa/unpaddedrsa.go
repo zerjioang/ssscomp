@@ -65,3 +65,8 @@ func DecryptUnpaddedRSA(priv *rsa.PrivateKey, ciphertext *big.Int) (*big.Int, er
 	c.Exp(ciphertext, priv.D, priv.N)
 	return c, nil
 }
+
+// https://www.johndcook.com/blog/2019/02/11/rsa-duplication-flaws/
+func eval() {
+
+}

@@ -18,12 +18,44 @@
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:1707ba850f6833209dad6ad897d1bf4943bf72355129cb833be9ebbbc517c46d"
+  name = "github.com/sajari/regression"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "c268e5d9b4c03d0c3aa9b67ee0ecbaf7bd08a6b9"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:8548c309c65a85933a625be5e7d52b6ac927ca30c56869fae58123b8a77a75e1"
   name = "github.com/stretchr/testify"
   packages = ["assert"]
   pruneopts = "UT"
   revision = "221dbe5ed46703ee255b1da0dec05086f5035f62"
   version = "v1.4.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:9430888ca04bd674dbaed65f51f9b6038f8018a05b261195fb50662ffa5f52d7"
+  name = "gonum.org/v1/gonum"
+  packages = [
+    "blas",
+    "blas/blas64",
+    "blas/cblas128",
+    "blas/gonum",
+    "floats",
+    "internal/asm/c128",
+    "internal/asm/c64",
+    "internal/asm/f32",
+    "internal/asm/f64",
+    "internal/cmplx64",
+    "internal/math32",
+    "lapack",
+    "lapack/gonum",
+    "lapack/lapack64",
+    "mat",
+  ]
+  pruneopts = "UT"
+  revision = "43865b531bee9d28dccf2cf831db9eef686ca8c6"
 
 [[projects]]
   digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
@@ -36,6 +68,9 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/stretchr/testify/assert"]
+  input-imports = [
+    "github.com/sajari/regression",
+    "github.com/stretchr/testify/assert",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

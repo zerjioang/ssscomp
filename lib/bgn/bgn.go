@@ -1,17 +1,17 @@
 package bgn
 
 import (
-	"github.com/zerjioang/ssscomp/lib/common"
+	"github.com/zerjioang/ssscomp/lib/math"
 	"math/big"
 )
 
 func Generate() error {
 	// choose large primes q,r and set n=qr
-	q, err := common.Prime(5)
+	q, err := math.Prime(5)
 	if err != nil {
 		return err
 	}
-	r, err := common.Prime(5)
+	r, err := math.Prime(5)
 	if err != nil {
 		return err
 	}
