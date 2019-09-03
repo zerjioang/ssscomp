@@ -23,7 +23,7 @@ type SecretSchema interface {
 	// reconstruct schema shares
 	Reconstruct(shares []Shareable) (Shareable, error)
 	//generates schema shares
-	Generate(secret int) (shares []Shareable)
+	Encrypt(secret int) (shares []Shareable)
 }
 
 type HomomorphicSchema interface {

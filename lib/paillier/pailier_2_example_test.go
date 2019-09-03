@@ -38,7 +38,7 @@ func TestFullPaillier(t *testing.T) {
 }
 
 func runPaillier(keySize int) {
-	// Generate a 128-bit private key.
+	// Encrypt a 128-bit private key.
 	privKey, err := GenerateKey(rand.Reader, keySize)
 	if err != nil {
 		fmt.Println(err)

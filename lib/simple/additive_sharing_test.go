@@ -15,7 +15,7 @@ func TestAdditiveShare(t *testing.T) {
 		fmt.Println(scheme)
 		//use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 20000
-		shares := scheme.Generate(20000)
+		shares := scheme.Encrypt(20000)
 
 		//get shares for different participants
 		alice := shares[0]
@@ -32,7 +32,7 @@ func TestAdditiveShare(t *testing.T) {
 
 		//use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 500
-		sharesX := x.Generate(500)
+		sharesX := x.Encrypt(500)
 
 		//get shares for different participants
 		x1 := sharesX[0]
@@ -43,7 +43,7 @@ func TestAdditiveShare(t *testing.T) {
 
 		//use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 100
-		sharesY := x.Generate(100)
+		sharesY := x.Encrypt(100)
 		y1 := sharesY[0]
 		y2 := sharesY[1]
 		y3 := sharesY[2]
@@ -66,7 +66,7 @@ func TestAdditiveShare(t *testing.T) {
 
 		//use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 500
-		sharesX := x.Generate(40)
+		sharesX := x.Encrypt(40)
 
 		//get shares for different participants
 		x1 := sharesX[0]
@@ -99,7 +99,7 @@ func TestAdditiveShare(t *testing.T) {
 
 		//use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 50
-		sharesY := x.Generate(50)
+		sharesY := x.Encrypt(50)
 		y1 := sharesY[0]
 		y2 := sharesY[1]
 		y3 := sharesY[2]
@@ -120,7 +120,7 @@ func TestAdditiveShare(t *testing.T) {
 
 		//use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 100
-		sharesY := x.Generate(50)
+		sharesY := x.Encrypt(50)
 		y1 := sharesY[0]
 		y2 := sharesY[1]
 		y3 := sharesY[2]
@@ -142,7 +142,7 @@ func TestAdditiveShare(t *testing.T) {
 
 		//use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 500
-		sharesX := x.Generate(500)
+		sharesX := x.Encrypt(500)
 
 		//get shares for different participants
 		x1 := sharesX[0]

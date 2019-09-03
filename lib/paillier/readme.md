@@ -5,3 +5,7 @@ With ElGamal public key encryption we have a public key of (Y,g,p) and a private
 ## Other implementations
 
 * https://github.com/actuallyachraf/gomorph
+
+## References
+
+* https://github.com/mortendahl/privateml/blob/master/paillier/Paillier.ipynb

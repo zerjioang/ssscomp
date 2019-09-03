@@ -43,7 +43,7 @@ func Add(a, b int) int { return a + b }
 func new_smpc_additive(participants C.int) uintptr {
 	fmt.Println("creating new spc additive schema")
 	sc, _ := simple.NewSimpleAdditiveScheme(int(participants))
-	return  uintptr(unsafe.Pointer(&sc))
+	return uintptr(unsafe.Pointer(&sc))
 }
 
 //export new_smpc_shamir

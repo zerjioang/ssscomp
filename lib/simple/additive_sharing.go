@@ -50,6 +50,15 @@ type SimpleAdditiveScheme struct {
 	Q int `json:"q"`
 }
 
+func NewSimpleAdditiveSchemePtr(participants int) (*SimpleAdditiveScheme, error) {
+	ret, err := NewSimpleAdditiveScheme(participants)
+	if err == nil {
+		return ret.(*SimpleAdditiveScheme), err
+	} else {
+		return nil, err
+	}
+}
+
 func NewSimpleAdditiveScheme(participants int) (common.SecretSchema, error) {
 	ret := new(SimpleAdditiveScheme)
 	if participants < 2 {
@@ -60,7 +69,7 @@ func NewSimpleAdditiveScheme(participants int) (common.SecretSchema, error) {
 	ret.K = 1
 	ret.T = ret.R - ret.K
 	// pick a random Q (the integers modulo a prime number)
-	ret.Q = common.RandomInRange(0, 5000000) + 1 // common.RandomInt()
+	ret.Q = common.RandomInRange(0, 500000) + 1 // common.RandomInt()
 	return ret, nil
 }
 
@@ -73,7 +82,7 @@ func (as *SimpleAdditiveScheme) Random() int {
 	return common.RandomInRange(0, as.Q)
 }
 
-func (as *SimpleAdditiveScheme) Generate(secret int) (shares []common.Shareable) {
+func (as *SimpleAdditiveScheme) Encrypt(secret int) (shares []common.Shareable) {
 	result := make([]common.Shareable, as.MinShares())
 	var sum int
 	for i := 0; i < int(as.N-1); i++ {
@@ -117,4 +126,28 @@ func (as *SimpleAdditiveScheme) Reconstruct(shares []common.Shareable) (common.S
 		return reconstructed.Mod(as.Q)
 	}
 	return nil, errSchemaNotDefined
+}
+
+// helper methods
+func (as *SimpleAdditiveScheme) encryptSingle(n int) int {
+	return as.Encrypt(n)[0].IntValue()
+}
+
+// Encrypt as E(m) = m + p *q
+func (as *SimpleAdditiveScheme) EncryptF64(n int) float64 {
+	return float64(as.encryptSingle(n))
+}
+
+func (as *SimpleAdditiveScheme) EncryptF64F(n float64) float64 {
+	return float64(as.encryptSingle(int(n)))
+}
+func (as *SimpleAdditiveScheme) EncryptF64FArray(n []float64) []float64 {
+	for i := range n {
+		n[i] = as.EncryptF64F(n[i])
+	}
+	return n
+}
+
+func (as *SimpleAdditiveScheme) Decrypt(n int) int {
+	return n
 }

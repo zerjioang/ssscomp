@@ -29,12 +29,22 @@ func (s *IntegerToyHomoScheme) Generate() error {
 
 // Encrypt as E(m) = m + p *q
 func (s *IntegerToyHomoScheme) Encrypt(n int) int {
-	return n + s.p*s.q
+	return n + s.p * s.q
 }
 
 // Encrypt as E(m) = m + p *q
 func (s *IntegerToyHomoScheme) EncryptF64(n int) float64 {
 	return float64(s.Encrypt(n))
+}
+
+func (s *IntegerToyHomoScheme) EncryptF64F(n float64) float64 {
+	return float64(s.Encrypt(int(n)))
+}
+func (s *IntegerToyHomoScheme) EncryptF64FArray(n []float64) []float64 {
+	for i := range n {
+		n[i] = s.EncryptF64F(n[i])
+	}
+	return n
 }
 
 // decrypt as D(m) = c mod p

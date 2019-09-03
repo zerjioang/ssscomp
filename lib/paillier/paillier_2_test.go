@@ -392,7 +392,7 @@ func BenchmarkAdditionLarge4096(b *testing.B) { benchmarkAddition(params4096, b)
 
 func TestPrintParams(t *testing.T) {
 
-	// Generate a 128-bit private key.
+	// Encrypt a 128-bit private key.
 	privKey, err := GenerateKey(rand.Reader, 4092)
 	if err != nil {
 		t.Fatal("Unable to generate private key: ", err)
@@ -429,7 +429,7 @@ func TestPrintParams(t *testing.T) {
 }
 
 func TestCorrectness(t *testing.T) {
-	// Generate a 128-bit private key.
+	// Encrypt a 128-bit private key.
 	privKey, err := GenerateKey(rand.Reader, 128)
 	if err != nil {
 		t.Fatal("Unable to generate private key: ", err)
@@ -455,7 +455,7 @@ func TestCorrectness(t *testing.T) {
 }
 
 func TestHomomorphicCipherTextAddition(t *testing.T) {
-	// Generate a 128-bit private key.
+	// Encrypt a 128-bit private key.
 	privKey, err := GenerateKey(rand.Reader, 128)
 	if err != nil {
 		t.Fatal("Unable to generate private key: ", err)
@@ -491,7 +491,7 @@ func TestHomomorphicCipherTextAddition(t *testing.T) {
 }
 
 func TestHomomorphicConstantAddition(t *testing.T) {
-	// Generate a 128-bit private key.
+	// Encrypt a 128-bit private key.
 	privKey, err := GenerateKey(rand.Reader, 128)
 	if err != nil {
 		t.Fatal("Unable to generate private key: ", err)
@@ -523,7 +523,7 @@ func TestHomomorphicConstantAddition(t *testing.T) {
 }
 
 func TestHomomorphicConstantMultiplication(t *testing.T) {
-	// Generate a 128-bit private key.
+	// Encrypt a 128-bit private key.
 	privKey, err := GenerateKey(rand.Reader, 128)
 	if err != nil {
 		t.Fatal("Unable to generate private key: ", err)

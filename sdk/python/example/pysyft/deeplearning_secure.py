@@ -13,6 +13,11 @@ class Arguments:
         self.epochs = 10
         self.lr = 0.001  # learning rate
         self.log_interval = 100
+        self.momentum = 0.5
+        self.no_cuda = False
+        self.seed = 1
+        self.log_interval = 10
+        self.save_model = True
 
 
 class Net(nn.Module):
@@ -67,13 +72,21 @@ def run_example():
     # worker that are called on tensors controlled by the local worker. It
     # also allows us to move tensors between workers. Workers are explained below.
     hook = sy.TorchHook(torch)
+
+    # load execution parameters
+    args = Arguments()
+    use_cuda = not args.no_cuda and torch.cuda.is_available()
+    torch.manual_seed(args.seed)
+    device = torch.device("cuda" if use_cuda else "cpu")
+    kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {}
+
     # Virtual workers are entities present on our local machine.
     # They are used to model the behavior of actual workers.
     client = sy.VirtualWorker(hook, id="client")
     bob = sy.VirtualWorker(hook, id="bob")
     alice = sy.VirtualWorker(hook, id="alice")
     crypto_provider = sy.VirtualWorker(hook, id="crypto_provider")
-    args = Arguments()
+
     # download MNIST training dataset
     # Downloads MNIST dataset
     mnist_trainset = datasets.MNIST(
