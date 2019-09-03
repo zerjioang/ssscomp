@@ -41,11 +41,12 @@ func main() {
 		fmt.Println("Bob Decrypted Prediction: ", plain)
 
 	}
+	fmt.Println("In order to Alice to Predict over encrypted data, Bob sends its N value to alice for data pre-processing")
 	// for 20 (speed), a 61 distance is predicted
 	// Alice wants to use encrypted model with its own data
-	aliceSchema := toy.NewIntegerToyHomoScheme()
-	_ = aliceSchema.Generate()
-	alicePrediction, err := r.Predict([]float64{bobSchema.EncryptF64F(20)})
+	encryptedAliceValue := bobSchema.N()+20
+	// alice prediction over encrypted data
+	alicePrediction, err := r.Predict([]float64{float64(encryptedAliceValue)})
 	if err == nil {
 		fmt.Println("Alice Additive Shard Encrypted Prediction: ", alicePrediction)
 		plain := bobSchema.Decrypt(int(alicePrediction))

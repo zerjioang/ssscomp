@@ -27,6 +27,10 @@ func (s *IntegerToyHomoScheme) Generate() error {
 	return nil
 }
 
+func (s *IntegerToyHomoScheme) N() int {
+	return s.p * s.q
+}
+
 // Encrypt as E(m) = m + p *q
 func (s *IntegerToyHomoScheme) Encrypt(n int) int {
 	return n + s.p * s.q
