@@ -129,21 +129,21 @@ func (as *SimpleAdditiveScheme) Reconstruct(shares []common.Shareable) (common.S
 }
 
 // helper methods
-func (as *SimpleAdditiveScheme) encryptSingle(n int) int {
-	return as.Encrypt(n)[0].IntValue()
+func (as *SimpleAdditiveScheme) encryptSingle(n int, share int) int {
+	return as.Encrypt(n)[share].IntValue()
 }
 
 // Encrypt as E(m) = m + p *q
-func (as *SimpleAdditiveScheme) EncryptF64(n int) float64 {
-	return float64(as.encryptSingle(n))
+func (as *SimpleAdditiveScheme) EncryptF64(n int, share int) float64 {
+	return float64(as.encryptSingle(n, share))
 }
 
-func (as *SimpleAdditiveScheme) EncryptF64F(n float64) float64 {
-	return float64(as.encryptSingle(int(n)))
+func (as *SimpleAdditiveScheme) EncryptF64F(n float64, share int) float64 {
+	return float64(as.encryptSingle(int(n), share))
 }
-func (as *SimpleAdditiveScheme) EncryptF64FArray(n []float64) []float64 {
+func (as *SimpleAdditiveScheme) EncryptF64FArray(n []float64, share int) []float64 {
 	for i := range n {
-		n[i] = as.EncryptF64F(n[i])
+		n[i] = as.EncryptF64F(n[i], share)
 	}
 	return n
 }
