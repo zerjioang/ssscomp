@@ -101,11 +101,20 @@ This library has support for current homomorphic algorithms:
 * Fully Homomorphic Encryption over the Integers. Marten van Dijk and Craig Gentry and Shai Halevi and Vinod Vaikuntanathan (https://eprint.iacr.org/2009/616.pdf)
 * Somewhat Homomorphic Encryption Scheme for Arithmetic Operations on Large Integers. (https://www.gta.ufrj.br/ftp/gta/TechReports/PAD12.pdf)
 * Fully Homomorphic Encryption from Ring-LWEand Security for Key Dependent Messages. Zvika Brakerski and Vinod Vaikuntanathan (http://www.wisdom.weizmann.ac.il/~zvikab/localpapers/IdealHom.pdf) 
+* Secure Computation for Machine Learning With SPDZ (https://arxiv.org/pdf/1901.00329.pdf)
+* Protocols for Secure Computations (https://research.cs.wisc.edu/areas/sec/yao1982-ocr.pdf)
+
+* https://hal.archives-ouvertes.fr/tel-01918263/document
+* https://www.di.ens.fr/~minelli/docs/phd-thesis.pdf
+* https://petsymposium.org/2019/files/papers/issue2/popets-2019-0026.pdf
+* https://eprint.iacr.org/2015/472.pdf
 
 ### Other references
 
 * http://cryptowiki.net/index.php?title=Fully_homomorphic_encryption_schemes
 * https://asecuritysite.com/encryption
+* https://medium.com/@apogiatzis/shamirs-secret-sharing-a-numeric-example-walkthrough-a59b288c34c4
+* https://towardsdatascience.com/understanding-differential-privacy-85ce191e198a
 
 ## License
 
