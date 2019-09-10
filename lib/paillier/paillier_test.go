@@ -1,6 +1,5 @@
 package paillier
 
-// from here: https://github.com/golang/crypto/tree/master/openpgp/elgamal
 import (
 	"crypto/rand"
 	"fmt"

@@ -9,7 +9,7 @@ import (
 
 // This example demonstrates basic usage of this library.
 // Features shown:
-//   * Encrypt/Decrypt
+//   * EncryptPadded/DecryptPadded
 //   * Homomorphic cipher text addition
 //   * Homomorphic addition with constant
 //   * Homomorphic multiplication with constant
@@ -38,14 +38,14 @@ func TestFullPaillier(t *testing.T) {
 }
 
 func runPaillier(keySize int) {
-	// Encrypt a 128-bit private key.
+	// EncryptPadded a 128-bit private key.
 	privKey, err := GenerateKey(rand.Reader, keySize)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	// Encrypt the number "15".
+	// EncryptPadded the number "15".
 	m15 := new(big.Int).SetInt64(15)
 	c15, err := Encrypt(&privKey.PublicKey2, m15.Bytes())
 	if err != nil {
@@ -53,7 +53,7 @@ func runPaillier(keySize int) {
 		return
 	}
 
-	// Decrypt the number "15".
+	// DecryptPadded the number "15".
 	d, err := Decrypt(privKey, c15)
 	if err != nil {
 		fmt.Println(err)
@@ -63,7 +63,7 @@ func runPaillier(keySize int) {
 	fmt.Println("Decryption Result of 15: ", plainText.String())
 
 	// Now for the fun stuff.
-	// Encrypt the number "20".
+	// EncryptPadded the number "20".
 	m20 := new(big.Int).SetInt64(20)
 	c20, err := Encrypt(&privKey.PublicKey2, m20.Bytes())
 	if err != nil {

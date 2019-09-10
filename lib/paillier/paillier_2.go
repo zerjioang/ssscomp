@@ -83,7 +83,7 @@ func l(u *big.Int, n *big.Int) *big.Int {
 	return new(big.Int).Div(new(big.Int).Sub(u, one), n)
 }
 
-// Encrypt encrypts a plain text represented as a byte array. The passed plain
+// EncryptPadded encrypts a plain text represented as a byte array. The passed plain
 // text MUST NOT be larger than the modulus of the passed public key.
 func Encrypt(pubKey *PublicKey2, plainText []byte) ([]byte, error) {
 	r, err := rand.Int(rand.Reader, pubKey.N)
@@ -109,7 +109,7 @@ func Encrypt(pubKey *PublicKey2, plainText []byte) ([]byte, error) {
 	return c.Bytes(), nil
 }
 
-// Decrypt decrypts the passed cipher text.
+// DecryptPadded decrypts the passed cipher text.
 func Decrypt(privKey *PrivateKey2, cipherText []byte) ([]byte, error) {
 	c := new(big.Int).SetBytes(cipherText)
 	if privKey.NSquared.Cmp(c) < 1 { // c < n^2

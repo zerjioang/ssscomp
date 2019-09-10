@@ -31,12 +31,12 @@ func (s *IntegerToyHomoScheme) N() int {
 	return s.p * s.q
 }
 
-// Encrypt as E(m) = m + p *q
+// EncryptPadded as E(m) = m + p *q
 func (s *IntegerToyHomoScheme) Encrypt(n int) int {
 	return n + s.p * s.q
 }
 
-// Encrypt as E(m) = m + p *q
+// EncryptPadded as E(m) = m + p *q
 func (s *IntegerToyHomoScheme) EncryptF64(n int) float64 {
 	return float64(s.Encrypt(n))
 }

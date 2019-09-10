@@ -41,7 +41,7 @@ func (s *BigToyHomoScheme) Generate() error {
 	return nil
 }
 
-// Encrypt as E(m) = m + p *q
+// EncryptPadded as E(m) = m + p *q
 func (s *BigToyHomoScheme) Encrypt(n int) *big.Int {
 	cx := big.NewInt(0)
 	cx.Mul(s.p, s.q)
