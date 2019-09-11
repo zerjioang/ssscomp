@@ -24,7 +24,7 @@ func (cs *Cypher) GetJson() ([]byte, error) {
 	return json.Marshal(map[string]string{
 		"c1": common.BigIntAsHex(cs.C1),
 		"c2": common.BigIntAsHex(cs.C2),
-		"p": common.BigIntAsHex(cs.P),
+		"p":  common.BigIntAsHex(cs.P),
 	})
 }
 
@@ -33,7 +33,7 @@ func (cs *Cypher) ToJSON() map[string]string {
 	return map[string]string{
 		"c1": common.BigIntAsHex(cs.C1),
 		"c2": common.BigIntAsHex(cs.C2),
-		"p": common.BigIntAsHex(cs.P),
+		"p":  common.BigIntAsHex(cs.P),
 	}
 }
 

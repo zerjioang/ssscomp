@@ -10,6 +10,7 @@ import (
 func main() {
 	bobSchema := toy.NewIntegerToyHomoScheme()
 	_ = bobSchema.Generate()
+	fmt.Println("Bob schema. N: ", bobSchema.N())
 
 	// Bob generates a LM
 	r := new(regression.Regression)
@@ -44,7 +45,7 @@ func main() {
 	fmt.Println("In order to Alice to Predict over encrypted data, Bob sends its N value to alice for data pre-processing")
 	// for 20 (speed), a 61 distance is predicted
 	// Alice wants to use encrypted model with its own data
-	encryptedAliceValue := bobSchema.N()+20
+	encryptedAliceValue := bobSchema.N() + 20
 	// alice prediction over encrypted data
 	alicePrediction, err := r.Predict([]float64{float64(encryptedAliceValue)})
 	if err == nil {

@@ -64,6 +64,15 @@ func GenerateSafePrimes(nbits int, random io.Reader) (p, q *big.Int, err error) 
 	}
 }
 
+func GenerateSmallPrimeInt() int {
+	p, _ := GeneratePrime(16)
+	return int(p.Int64())
+}
+
+func GeneratePrime(size uint) (p *big.Int, err error) {
+	return rand.Prime(rand.Reader, int(size))
+}
+
 // Generate a random element in the group of all the elements in Z/nZ that
 // has a multiplicative inverse.
 func GetRandomNumberInMultiplicativeGroup(n *big.Int, random io.Reader) (*big.Int, error) {

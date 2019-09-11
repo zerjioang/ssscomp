@@ -54,7 +54,7 @@ func (pk *PublicKey) EncryptPadded(random io.Reader, msg []byte) (*Cypher, error
 	// EM = 0x02 || PS || 0x00 || M
 	em := make([]byte, pLen-1)
 	em[0] = 2
-	ps, mm := em[1 : len(em)-len(msg)-1], em[len(em)-len(msg):]
+	ps, mm := em[1:len(em)-len(msg)-1], em[len(em)-len(msg):]
 	err := common.FillNonZeroRandomBytes(ps, random)
 	if err != nil {
 		return nil, err
@@ -99,9 +99,9 @@ func (pk *PublicKey) EncryptNoPadding(random io.Reader, msg []byte) (cypher *Cyp
 // Encodes public key as hexadecimal JSON
 func (pk *PublicKey) GetJson() ([]byte, error) {
 	return json.Marshal(map[string]string{
-		"g": common.BigIntAsHex(pk.G),
+		"g":  common.BigIntAsHex(pk.G),
 		"pk": common.BigIntAsHex(pk.P),
-		"y": common.BigIntAsHex(pk.Y),
+		"y":  common.BigIntAsHex(pk.Y),
 	})
 }
 
