@@ -133,7 +133,7 @@ func (as *SimpleAdditiveScheme) encryptSingle(n int, share int) int {
 	return as.Encrypt(n)[share].IntValue()
 }
 
-// Encrypt as E(m) = m + p *q
+// EncryptPadded as E(m) = m + p *q
 func (as *SimpleAdditiveScheme) EncryptF64(n int, share int) float64 {
 	return float64(as.encryptSingle(n, share))
 }

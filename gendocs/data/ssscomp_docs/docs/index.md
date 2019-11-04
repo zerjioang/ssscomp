@@ -1,5 +1,7 @@
+# `Secret Sharing` & `Secure Computation` Library for Golang
+
 <p align="center">
-  <img alt="ssscomp" src="readme/header.png" width="auto"></img>
+  <img alt="ssscomp" src="images/header.png" width="auto"></img>
   <h3 align="center"><b>Secret Sharing & Secure Computation Library for Go</b></h3>
 </p>
 
@@ -54,7 +56,7 @@ Use `pip install ssscomp` to download the package to you environment. Developmen
 | ElGamal                   	| Homomorphic Encryption  	| `add` only        	|                  	|
 | BGN Cryptosystem             	| Homomorphic Encryption  	| `mul`, `add` only  	|                  	|
 
-### Secret Sharing
+### Supported Secret Sharing
 
 #### Description
 
@@ -83,7 +85,7 @@ Both the Shamir and the packed scheme enjoy certain homomorphic properties: shar
 * https://github.com/amousa11/sss
 * https://github.com/sam701/secret-sharing
 
-### Homomorphic Encryption Algorithms
+### Supported Homomorphic Encryption Algorithms
 
 This library has support for current homomorphic algorithms:
 
@@ -91,43 +93,3 @@ This library has support for current homomorphic algorithms:
 * ElGamal
 * Paillier
 * DGHV
-
-## References
-
-* Efficient Integer Vector Homomorphic Encryption. Angel Yu, Wai Lok Lai, James Payor. (https://courses.csail.mit.edu/6.857/2015/files/yu-lai-payor.pdf)
-* Homomorphic Encryption and the BGN Cryptosystem. David Mandell Freeman (http://theory.stanford.edu/~dfreeman/cs259c-f11/lectures/bgn)
-* Converting Pairing-Based Cryptosystems from Composite-Order Groups to Prime-Order Groups. David Mandell Freeman. (http://theory.stanford.edu/~dfreeman/papers/subgroups.pdf, http://theory.stanford.edu/~dfreeman/talks/eurocrypt10.pdf)
-* Public Key Compression and Modulus Switching for FullyHomomorphic Encryption over the Integers. Jean-S ́ebastien Coron, David Naccache, and Mehdi Tibouchi (https://eprint.iacr.org/2011/440.pdf)
-* Fully Homomorphic Encryption over the Integers. Marten van Dijk and Craig Gentry and Shai Halevi and Vinod Vaikuntanathan (https://eprint.iacr.org/2009/616.pdf)
-* Somewhat Homomorphic Encryption Scheme for Arithmetic Operations on Large Integers. (https://www.gta.ufrj.br/ftp/gta/TechReports/PAD12.pdf)
-* Fully Homomorphic Encryption from Ring-LWEand Security for Key Dependent Messages. Zvika Brakerski and Vinod Vaikuntanathan (http://www.wisdom.weizmann.ac.il/~zvikab/localpapers/IdealHom.pdf) 
-* Secure Computation for Machine Learning With SPDZ (https://arxiv.org/pdf/1901.00329.pdf)
-* Protocols for Secure Computations (https://research.cs.wisc.edu/areas/sec/yao1982-ocr.pdf)
-* A Pragmatic Introduction toSecure Multi-Party Computation. (https://www.cs.virginia.edu/~evans/pragmaticmpc/pragmaticmpc.pdf)
-* Secure Multiparty Computation. (https://www.cs.tau.ac.il/~iftachh/Courses/Seminars/MPC/Intro.pdf)
-
-
-* https://hal.archives-ouvertes.fr/tel-01918263/document
-* https://www.di.ens.fr/~minelli/docs/phd-thesis.pdf
-* https://petsymposium.org/2019/files/papers/issue2/popets-2019-0026.pdf
-* https://eprint.iacr.org/2015/472.pdf
-
-### Other references
-
-* http://cryptowiki.net/index.php?title=Fully_homomorphic_encryption_schemes
-* https://asecuritysite.com/encryption
-* https://medium.com/@apogiatzis/shamirs-secret-sharing-a-numeric-example-walkthrough-a59b288c34c4
-* https://towardsdatascience.com/understanding-differential-privacy-85ce191e198a
-* https://blog.quarkslab.com/a-brief-survey-of-fully-homomorphic-encryption-computing-on-encrypted-data.html
-
-## License
-
-Copyright (c) 2019 Sergio Anguita
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
- * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
- * Uses GPL license described below
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

@@ -1,0 +1,114 @@
+# Project information
+site_name: ssscomp
+site_description: Secret Sharing & Secure Computation Library for Go
+# set root production url 
+site_url: https://zerjioang.github.io/ssscomp/index.html
+
+# Repository
+repo_name: ssscomp-3-0
+repo_url: https://github.com/zerjioang/ssscomp
+edit_uri: ""
+
+# Copyright
+copyright: 'Copyright &copy; 2019 zerjioang'
+
+# https://squidfunk.github.io/mkdocs-material/getting-started/
+
+# Configuration
+theme:
+  name: 'material'
+  shortcuts:
+    help: 191    # ?
+    next: 78     # n
+    previous: 80 # p
+    search: 83   # s
+
+  # 404 page
+  static_templates:
+    - 404.html
+
+  # Default values, taken from mkdocs_theme.yml
+  language: es
+  feature:
+    tabs: true
+  palette:
+    primary: orange
+    accent: light orange
+  font:
+    text: 'Ubuntu'
+    code: 'Ubuntu Mono'
+  favicon: "images/secret.png"
+  logo: 'images/secret.png'
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: true
+  search_index_only: false
+
+# generate url with index.html
+use_directory_urls: false
+
+# Customization
+extra:
+  social:
+    - type: globe
+      link: https://github.com/zerjioang/ssscomp
+    - type: github-alt
+      link: https://github.com/zerjioang/ssscomp
+    #- type: twitter
+    #  link: https://twitter.com/squidfunk
+    #- type: linkedin
+    # link: https://linkedin.com/in/squidfunk
+
+extra_css: 
+  - css/extra.css
+    
+# Extensions
+markdown_extensions:
+  - admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+      linenums: true
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Page tree
+nav:
+  - Home: 
+    - Introduction: index.md
+    - Features: features.md
+  - Core:
+    - Introduction: core/index.md
+    - DGHV: core/dhgv.md
+    - References: core/references.md
+  - About:
+    - License: about/license.md
+    - Code of Conduct: contribution/conduct.md
+    - Release Notes: about/notes.md
+    - Contributions: contribution/contributing-guide.md
+
+# Google Analytics
+# - see:  https://squidfunk.github.io/mkdocs-material/getting-started/#google-analytics
+google_analytics:
+  - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
+  - auto
+ #- 'UA-135465513-1'

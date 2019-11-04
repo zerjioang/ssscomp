@@ -1,6 +1,9 @@
 package common
 
-import "crypto/rand"
+import (
+	"crypto/rand"
+	"io"
+)
 
 // GenerateRandomBytes returns securely generated random bytes.
 // It will return an error if the system's secure random
@@ -15,4 +18,21 @@ func GenerateRandomBytes(n int) ([]byte, error) {
 	}
 
 	return b, nil
+}
+
+// FillNonZeroRandomBytes fills the given slice with non-zero random octets.
+func FillNonZeroRandomBytes(s []byte, rand io.Reader) (err error) {
+	_, err = io.ReadFull(rand, s)
+	if err != nil {
+		return
+	}
+	for i := 0; i < len(s); i++ {
+		for s[i] == 0 {
+			_, err = io.ReadFull(rand, s[i:i+1])
+			if err != nil {
+				return
+			}
+		}
+	}
+	return
 }

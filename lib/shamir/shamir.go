@@ -169,7 +169,7 @@ func Split(secret []byte, parts, threshold int) ([][]byte, error) {
 		return nil, fmt.Errorf("cannot split an empty secret")
 	}
 
-	// Encrypt random list of x coordinates
+	// EncryptPadded random list of x coordinates
 	mathrand.Seed(time.Now().UnixNano())
 	xCoordinates := mathrand.Perm(255)
 
@@ -192,7 +192,7 @@ func Split(secret []byte, parts, threshold int) ([][]byte, error) {
 			return nil, errors.New("failed to generate polynomial: " + err.Error())
 		}
 
-		// Encrypt a `parts` number of (x,y) pairs
+		// EncryptPadded a `parts` number of (x,y) pairs
 		// We cheat by encoding the x value once as the final index,
 		// so that it only needs to be stored once.
 		for i := 0; i < parts; i++ {
