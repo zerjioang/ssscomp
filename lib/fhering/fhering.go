@@ -36,7 +36,7 @@ func (schema *RingZtwo) Generate() error {
 	randomBig.SetBytes(raw)
 
 	// generate a 2n + 1. odd number
-	p := math.GenerateOddPrime(randomBig)
+	p := math.GenerateBigOdd(randomBig)
 
 	fmt.Println(common.BigIntAsDecimal(p))
 	schema.p = p

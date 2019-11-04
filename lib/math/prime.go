@@ -77,7 +77,7 @@ NextSetOfPrimes:
 	return primes, nil
 }
 
-func GenerateOddPrime(n *big.Int) *big.Int {
+func GenerateBigOdd(n *big.Int) *big.Int {
 	// generate a 2n + 1. odd number
 	p := big.NewInt(0)
 	p.Mul(n, twoBig)
