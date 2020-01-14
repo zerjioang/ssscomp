@@ -49,9 +49,9 @@ func Create(minimum int, shares int, raw string) ([]string, error) {
 
 		for j := range polynomial[i][1:] {
 			// Each coefficient should be unique
-			number := common.RandomPrime()
+			number := common.RandomBigNumber()
 			for common.InNumbers(numbers, number) {
-				number = common.RandomPrime()
+				number = common.RandomBigNumber()
 			}
 			numbers = append(numbers, number)
 
@@ -79,9 +79,9 @@ func Create(minimum int, shares int, raw string) ([]string, error) {
 			secrets[i][j] = make([]*big.Int, 2)
 
 			// ...generate a new x-coordinate...
-			number := common.RandomPrime()
+			number := common.RandomBigNumber()
 			for common.InNumbers(numbers, number) {
-				number = common.RandomPrime()
+				number = common.RandomBigNumber()
 			}
 			numbers = append(numbers, number)
 
