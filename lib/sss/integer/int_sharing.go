@@ -1,4 +1,4 @@
-package simple
+package integer
 
 import (
 	"errors"
@@ -24,25 +24,26 @@ As argued below, this hides the secret as long as no one knows more than two sha
 yet if all three shares are known then x can be reconstructed by simply computing x1 + x2 + x3.
 More generally, this scheme is known as additive sharing and works for any N number of shares
 by picking T = N - 1 random values.
-
 */
 
 /*
 logically, we must have R <= N since otherwise reconstruction is never possible
 and we must have T < R since otherwise privacy makes little sense.
 
-SimpleAdditiveScheme is an n-out-of-n schema
+IntAdditiveScheme is an n-out-of-n schema
 (It’s clear that this scheme isn-out-of-n, since any n−1 shares are random,
-so allnshares arerequired to recover the secret.)
+so all n shares are required to recover the secret.)
 */
-type SimpleAdditiveScheme struct {
-	common.SecretSchema `json:"_,omitempty"`
+type IntAdditiveScheme struct {
+	common.SharedSecretSchema `json:"_,omitempty"`
 	// N: the number of shares that each secret is split into
+	// also known as the number of participants
 	N int `json:"n"`
 	// R: the minimum number of shares needed to reconstruct the secret
 	R int `json:"r"`
 	// T: the maximum number of shares that may be seen without
 	// learning nothing about the secret, also known as the privacy threshold
+	// in additive threshold, T is N - 1
 	T int `json:"t"`
 	// K: the number of secrets shared together
 	K int `json:"k"`
@@ -50,17 +51,17 @@ type SimpleAdditiveScheme struct {
 	Q int `json:"q"`
 }
 
-func NewSimpleAdditiveSchemePtr(participants int) (*SimpleAdditiveScheme, error) {
+func NewSimpleAdditiveSchemePtr(participants int) (*IntAdditiveScheme, error) {
 	ret, err := NewSimpleAdditiveScheme(participants)
 	if err == nil {
-		return ret.(*SimpleAdditiveScheme), err
+		return ret.(*IntAdditiveScheme), err
 	} else {
 		return nil, err
 	}
 }
 
-func NewSimpleAdditiveScheme(participants int) (common.SecretSchema, error) {
-	ret := new(SimpleAdditiveScheme)
+func NewSimpleAdditiveScheme(participants int) (common.SharedSecretSchema, error) {
+	ret := new(IntAdditiveScheme)
 	if participants < 2 {
 		return nil, errMoreParticipantsRequired
 	}
@@ -73,16 +74,16 @@ func NewSimpleAdditiveScheme(participants int) (common.SecretSchema, error) {
 	return ret, nil
 }
 
-func (as *SimpleAdditiveScheme) String() string {
-	return fmt.Sprintf("simple sharing scheme: N=%d, R=%d, T=%d, K=%d, Q=%d", as.N, as.R, as.T, as.K, as.Q)
+func (as *IntAdditiveScheme) String() string {
+	return fmt.Sprintf("integer sharing scheme: N=%d, R=%d, T=%d, K=%d, Q=%d", as.N, as.R, as.T, as.K, as.Q)
 }
 
 // returns a random number inside following finite space: { 0, 1, ..., Q-1 } for a prime Q.
-func (as *SimpleAdditiveScheme) Random() int {
+func (as *IntAdditiveScheme) Random() int {
 	return common.RandomInRange(0, as.Q)
 }
 
-func (as *SimpleAdditiveScheme) Encrypt(secret int) (shares []common.Shareable) {
+func (as *IntAdditiveScheme) Encrypt(secret int) (shares []common.Shareable) {
 	result := make([]common.Shareable, as.MinShares())
 	var sum int
 	for i := 0; i < int(as.N-1); i++ {
@@ -98,16 +99,16 @@ func (as *SimpleAdditiveScheme) Encrypt(secret int) (shares []common.Shareable) 
 }
 
 // return number of shared
-func (as *SimpleAdditiveScheme) Shares() int {
+func (as *IntAdditiveScheme) Shares() int {
 	return as.N
 }
 
-func (as *SimpleAdditiveScheme) MinShares() int {
+func (as *IntAdditiveScheme) MinShares() int {
 	return as.R
 }
 
 // return number of participants required to decode the message M
-func (as *SimpleAdditiveScheme) PrivacyThreshold() int {
+func (as *IntAdditiveScheme) PrivacyThreshold() int {
 	return as.T
 }
 
@@ -116,7 +117,7 @@ func (as *SimpleAdditiveScheme) PrivacyThreshold() int {
 // That the secret remains hidden as long as at most T = N - 1 shareholders
 // collaborate follows from the marginal distribution of the view of up to T shareholders
 // being independent of the secret.
-func (as *SimpleAdditiveScheme) Reconstruct(shares []common.Shareable) (common.Shareable, error) {
+func (as *IntAdditiveScheme) Reconstruct(shares []common.Shareable) (common.Shareable, error) {
 	if as != nil {
 		reconstructed := shares[0].Copy()
 		reconstructed.Reset()
@@ -129,25 +130,25 @@ func (as *SimpleAdditiveScheme) Reconstruct(shares []common.Shareable) (common.S
 }
 
 // helper methods
-func (as *SimpleAdditiveScheme) encryptSingle(n int, share int) int {
+func (as *IntAdditiveScheme) encryptSingle(n int, share int) int {
 	return as.Encrypt(n)[share].IntValue()
 }
 
 // EncryptPadded as E(m) = m + p *q
-func (as *SimpleAdditiveScheme) EncryptF64(n int, share int) float64 {
+func (as *IntAdditiveScheme) EncryptF64(n int, share int) float64 {
 	return float64(as.encryptSingle(n, share))
 }
 
-func (as *SimpleAdditiveScheme) EncryptF64F(n float64, share int) float64 {
+func (as *IntAdditiveScheme) EncryptF64F(n float64, share int) float64 {
 	return float64(as.encryptSingle(int(n), share))
 }
-func (as *SimpleAdditiveScheme) EncryptF64FArray(n []float64, share int) []float64 {
+func (as *IntAdditiveScheme) EncryptF64FArray(n []float64, share int) []float64 {
 	for i := range n {
 		n[i] = as.EncryptF64F(n[i], share)
 	}
 	return n
 }
 
-func (as *SimpleAdditiveScheme) Decrypt(n int) int {
+func (as *IntAdditiveScheme) Decrypt(n int) int {
 	return n
 }

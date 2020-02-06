@@ -1,8 +1,8 @@
 package bgn
 
 import (
+	"github.com/zerjioang/ssscomp/lib/bigconst"
 	"github.com/zerjioang/ssscomp/lib/math"
-	"math/big"
 )
 
 func Generate() error {
@@ -16,6 +16,6 @@ func Generate() error {
 		return err
 	}
 	// n = q * r
-	n := big.NewInt(0)
+	n := bigconst.BigZero
 	n.Mul(q, r)
 }

@@ -19,7 +19,7 @@ func (cs *Cypher) Mul(cypher1, cypher2 *Cypher) *Cypher {
 	return cs
 }
 
-// Encodes cryptomessage as JSON
+// Encodes crypto message as JSON
 func (cs *Cypher) GetJson() ([]byte, error) {
 	return json.Marshal(map[string]string{
 		"c1": common.BigIntAsHex(cs.C1),

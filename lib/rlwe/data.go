@@ -217,4 +217,3 @@ var smallCoeffTable = [11]RINGELT{40956, 40957, 40958, 40959, 40960, 0, 1, 2, 3,
 
 const q_1_4, q_2_4, q_3_4 RINGELT = 10240, 20480, 30721
 const r0_l, r0_u, r1_l, r1_u RINGELT = 15360, 35841, 5119, 25601
-

@@ -1,18 +1,24 @@
 package main
 
 import (
+	"github.com/zerjioang/ssscomp/lib/bigconst"
 	"log"
 	"math/big"
 	"testing"
 )
 
-func ExampleCL15(){
-	p, err := generateLargePrime(bits)
+const (
+	//default number of bits used
+	bits = 2048
+)
+
+func ExampleCL15() {
+	p, err := bigconst.LargePrime(bits)
 	if err != nil {
 		log.Fatal("could not generate prime p")
 	}
 
-	q, err := generateLargePrime(bits)
+	q, err := bigconst.LargePrime(bits)
 	if err != nil {
 		log.Fatal("could not generate prime q")
 	}
@@ -61,7 +67,7 @@ func ExampleCL15(){
 	log.Println("Derived ID2:", val)
 }
 
-func TestCL15(t *testing.T){
+func TestCL15(t *testing.T) {
 	t.Run("example-1", func(t *testing.T) {
 		ExampleCL15()
 	})
@@ -72,6 +78,7 @@ func TestCL15(t *testing.T){
 			new(big.Int).SetInt64(19382983298),
 			new(big.Int).SetInt64(3929333233),
 			new(big.Int).SetInt64(2389239238),
+			bits,
 		)
 	})
 	t.Run("profiling", func(t *testing.T) {
@@ -82,8 +89,8 @@ func TestCL15(t *testing.T){
 				new(big.Int).SetInt64(19382983298),
 				new(big.Int).SetInt64(3929333233),
 				new(big.Int).SetInt64(2389239238),
+				bits,
 			)
 		}
 	})
 }
-

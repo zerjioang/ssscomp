@@ -10,15 +10,14 @@ import (
 
 func TestVoting(t *testing.T) {
 	t.Run("example", func(t *testing.T) {
-		
+
 		votesCount := 5
 		votes := make([]string, votesCount)
-		votes[0]="1"
-		votes[1]="2"
-		votes[2]="3"
-		votes[3]="4"
-		votes[4]="5"
-
+		votes[0] = "1"
+		votes[1] = "2"
+		votes[2] = "3"
+		votes[3] = "4"
+		votes[4] = "5"
 
 		x := make([]string, votesCount)
 		y := make([]*big.Int, votesCount)
@@ -81,7 +80,7 @@ func TestVoting(t *testing.T) {
 		fmt.Printf("\n\nVoter 3 (Vote Registration): %s", y[2])
 		fmt.Printf("\n\nVoter 4 (Vote Registration): %s", y[3])
 		fmt.Printf("\n\nVoter 5 (Vote Registration): %s", y[4])
-		
+
 		fmt.Printf("\n\nVoter 1 (Vote Value): %s", RegVote[0])
 		fmt.Printf("\n\nVoter 2 (Vote Value): %s", RegVote[1])
 		fmt.Printf("\n\nVoter 3 (Vote Value): %s", RegVote[2])

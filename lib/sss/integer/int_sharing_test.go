@@ -1,4 +1,4 @@
-package simple
+package integer
 
 import (
 	"fmt"
@@ -12,15 +12,19 @@ func TestAdditiveShare(t *testing.T) {
 		scheme, err := NewSimpleAdditiveScheme(3)
 		assert.NotNil(t, scheme)
 		assert.Nil(t, err)
-		fmt.Println(scheme)
-		//use additive secret sharing for new data distribution among 3 participants
+		t.Log(scheme)
+		// use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 20000
 		shares := scheme.Encrypt(20000)
 
-		//get shares for different participants
+		// get shares for different participants
 		alice := shares[0]
 		bob := shares[1]
 		mike := shares[2]
+
+		t.Log("Alice: ", alice)
+		t.Log("Bob: ", bob)
+		t.Log("Mike: ", mike)
 
 		r1, err := scheme.Reconstruct([]common.Shareable{alice, bob, mike})
 		assert.NoError(t, err)
@@ -30,7 +34,7 @@ func TestAdditiveShare(t *testing.T) {
 		x, _ := NewSimpleAdditiveScheme(3)
 		fmt.Println(x)
 
-		//use additive secret sharing for new data distribution among 3 participants
+		// use additive secret sharing for new data distribution among 3 participants
 		// in this example, data will be value 500
 		sharesX := x.Encrypt(500)
 
@@ -86,13 +90,13 @@ func TestAdditiveShare(t *testing.T) {
 
 		//homomorphic addition
 		b := common.NewIntSharePtr(2)
+		t.Log(hsum1, hsum2, hsum3)
 		hsum1, _ = hsum1.Add(b)
 		hsum2, _ = hsum2.Add(b)
 		hsum3, _ = hsum3.Add(b)
-
 		t.Log(hsum1, hsum2, hsum3)
 		result2, _ := x.Reconstruct([]common.Shareable{hsum1, hsum2, hsum3})
-		assert.Equal(t, result2.IntValue(), 525)
+		assert.Equal(t, result2.IntValue(), 522)
 	})
 	t.Run("3-participant-homomorphic-multiply-plaintext", func(t *testing.T) {
 		x, _ := NewSimpleAdditiveScheme(3)

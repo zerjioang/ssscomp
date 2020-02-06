@@ -1,28 +1,15 @@
 package main
 
 import (
-	"crypto/rand"
 	"errors"
+	"github.com/zerjioang/ssscomp/lib/bigconst"
 	"math/big"
 )
 
-const (
-	//default number of bits used
-	bits = 2048
-)
-
-var (
-	bigE65537 = new(big.Int).SetInt64(65537)
-	bigOne = big.NewInt(1)
-)
-func generateLargePrime(k int) (p *big.Int, err error) {
-	return rand.Prime(rand.Reader, k)
-}
-
-func generateIds(p, q, uid, xa, xb *big.Int) error {
+func generateIds(p, q, uid, xa, xb *big.Int, bits int) error {
 	if p == nil {
 		var err error
-		p, err = generateLargePrime(bits)
+		p, err = bigconst.LargePrime(bits)
 		if err != nil {
 			return err
 		}
@@ -30,20 +17,22 @@ func generateIds(p, q, uid, xa, xb *big.Int) error {
 
 	if q == nil {
 		var err error
-		q, err = generateLargePrime(bits)
+		q, err = bigconst.LargePrime(bits)
 		if err != nil {
 			return err
 		}
 	}
-	// n=p*q
+	// n = p * q
 	n := new(big.Int).Mul(p, q)
 
-	phiL := new(big.Int).Sub(p, bigOne)
-	phiR := new(big.Int).Sub(q, bigOne)
+	phiL := new(big.Int).Sub(p, bigconst.BigOne)
+	phiR := new(big.Int).Sub(q, bigconst.BigOne)
+
 	// PHI=(p-1)*(q-1)
 	phi := new(big.Int).Mul(phiL, phiR)
+
 	// d=inverse_of(e,PHI)
-	d := new(big.Int).ModInverse(bigE65537, phi)
+	d := new(big.Int).ModInverse(bigconst.BigE65537, phi)
 
 	id1 := new(big.Int).Exp(uid, xa, n)
 	id2 := new(big.Int).Exp(uid, xb, n)
@@ -54,7 +43,7 @@ func generateIds(p, q, uid, xa, xb *big.Int) error {
 		return errors.New("failed to create id2")
 	}
 
-	cipherOne := new(big.Int).Exp(id1, bigE65537, n)
+	cipherOne := new(big.Int).Exp(id1, bigconst.BigE65537, n)
 
 	val := new(big.Int).Exp(cipherOne, xb, n)
 	modInvxaphi := new(big.Int).ModInverse(xa, phi)

@@ -15,4 +15,4 @@ BenchmarkCL15/example-12         	       1	1313508525 ns/op	   0.00 MB/s	 814865
 After setting bigOne as constant number
 BenchmarkCL15/example-12         	       2	1483222087 ns/op	   0.00 MB/s	 9059852 B/op	   15353 allocs/op
 
- */
+*/

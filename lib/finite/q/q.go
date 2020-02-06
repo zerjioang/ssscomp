@@ -33,7 +33,7 @@ type QField struct {
 //
 // 2 * 3 = 6 mod 7 = 6
 // 3 * 3 = 9 mod 7 = 2
-// So far so simple, but what happens when m > 1 ?
+// So far so integer, but what happens when m > 1 ?
 //
 // Extension fields
 // We will call extension field to a finite body where the number of elements

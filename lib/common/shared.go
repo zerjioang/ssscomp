@@ -15,19 +15,19 @@ type Shareable interface {
 	Mod(q int) (Shareable, error)
 }
 
-// SecretSchema is the interface used by all different secret sharing schemas
-type SecretSchema interface {
+// SharedSecretSchema is the interface used by all different secret sharing schemas
+type SharedSecretSchema interface {
 	Shares() int
 	MinShares() int
 	PrivacyThreshold() int
 	// reconstruct schema shares
 	Reconstruct(shares []Shareable) (Shareable, error)
-	//generates schema shares
+	// generates schema shares
 	Encrypt(secret int) (shares []Shareable)
 }
 
 type HomomorphicSchema interface {
 	Generate() error
-	Encrypt()
-	Decrypt()
+	Encrypt() error
+	Decrypt() error
 }
