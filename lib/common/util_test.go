@@ -9,7 +9,7 @@ import (
 
 func TestRandom(t *testing.T) {
 	for i := 0; i < 50000; i++ {
-		if RandomPrime().Cmp(prime) >= 0 {
+		if RandomBigNumber().Cmp(prime) >= 0 {
 			t.Fatal("generated random numbers failed")
 		}
 	}
@@ -17,7 +17,7 @@ func TestRandom(t *testing.T) {
 
 func TestBaseConversion(t *testing.T) {
 	for i := 0; i < 10000; i++ {
-		point := RandomPrime()
+		point := RandomBigNumber()
 		if point.Cmp(FromBase64(ToBase64(point))) != 0 {
 			t.Fatal("Fatal: Base conversion failed")
 		}
@@ -26,7 +26,7 @@ func TestBaseConversion(t *testing.T) {
 
 func TestToBase64(t *testing.T) {
 	for i := 0; i < 10000; i++ {
-		point := RandomPrime()
+		point := RandomBigNumber()
 		if len(ToBase64(point)) != 44 {
 			t.Fatal("Fatal: ToBase64 returned wrong length")
 		}
@@ -68,7 +68,7 @@ func TestSplitMergeOdds(t *testing.T) {
 func TestModInverse(t *testing.T) {
 	prime := GetDefaultPrimeNumber()
 	for i := 0; i < 10000; i++ {
-		point := big.NewInt(0).Set(RandomPrime())
+		point := big.NewInt(0).Set(RandomBigNumber())
 		if point.Cmp(prime) >= 0 {
 			t.Fatal("Error! Random point out of bounds exception")
 		}

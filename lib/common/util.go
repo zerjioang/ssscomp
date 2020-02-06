@@ -48,7 +48,7 @@ func RandomSet(size int) []int {
 	var result []int
 	result = make([]int, size)
 	for i := 0; i < len(result); i++ {
-		result[i] = int(RandomInRange(0, 100))
+		result[i] = RandomInRange(0, 100)
 	}
 	return result
 }
@@ -62,14 +62,35 @@ func Polynomial(x int, v []int) int {
 }
 
 /**
- * Returns a RandomPrime number from the range (0, prime-1) inclusive
+ * Returns a random number from the range (0, prime-1) inclusive
 **/
-func RandomPrime() *big.Int {
+func RandomBigNumber() *big.Int {
 	prime := GetDefaultPrimeNumber()
-	result := big.NewInt(0).Set(prime)
-	result = result.Sub(result, big.NewInt(1))
+	result := big.NewInt(0).Sub(prime, big.NewInt(1))
 	result, _ = rand.Int(rand.Reader, result)
 	return result
+}
+/**
+ * Returns a random prime number from the range (0, max) inclusive
+**/
+func RandomPrimeLess(max *big.Int) (n *big.Int, err error) {
+	search := true
+	for search {
+		n, err = rand.Prime(rand.Reader, max.BitLen()-1)
+		if err != nil {
+			return nil, err
+		}
+		//check if prime number found is smaller than max. otherwise, do it again
+		search =  n.Cmp(max) == 1
+	}
+	return n, err
+}
+
+/**
+ * Returns a random number from the range (0, max) inclusive
+**/
+func RandomBigLess(max *big.Int) (n *big.Int, err error) {
+	return rand.Int(rand.Reader, max)
 }
 
 /**
