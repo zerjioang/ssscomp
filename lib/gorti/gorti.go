@@ -35,7 +35,7 @@ func (e *EncryptionKey) encrypt(x *big.Int) *big.Int {
 // 		= (X+rp) mod p
 // 		= rp mod p + X mod p
 // 		= X Plaintext
-func (e *EncryptionKey) decrypt (y *big.Int) *big.Int {
+func (e *EncryptionKey) decrypt(y *big.Int) *big.Int {
 	return big.NewInt(0).Mod(y, e.p)
 }
 
@@ -49,9 +49,9 @@ func NewGorti(size uint) *EncryptionKey {
 	// calculate m as m = p*q for modulo m operations
 	m := big.NewInt(0).Mul(p, q)
 	return &EncryptionKey{
-		p:p,
-		q:q,
-		r:r,
-		m:m,
+		p: p,
+		q: q,
+		r: r,
+		m: m,
 	}
 }

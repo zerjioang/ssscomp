@@ -70,6 +70,15 @@ func RandomBigNumber() *big.Int {
 	result, _ = rand.Int(rand.Reader, result)
 	return result
 }
+
+/**
+ * Returns a random number from the range (0, max) inclusive
+**/
+func RandomBigNumberLessThan(max *big.Int) *big.Int {
+	result, _ := rand.Int(rand.Reader, max)
+	return result
+}
+
 /**
  * Returns a random prime number from the range (0, max) inclusive
 **/
@@ -81,9 +90,48 @@ func RandomPrimeLess(max *big.Int) (n *big.Int, err error) {
 			return nil, err
 		}
 		//check if prime number found is smaller than max. otherwise, do it again
-		search =  n.Cmp(max) == 1
+		search = n.Cmp(max) == 1
 	}
 	return n, err
+}
+
+/**
+ * Returns a random prime number from the range (min, max) inclusive
+**/
+func RandomPrimeBetween(min, max *big.Int) (n *big.Int, err error) {
+	search := true
+	for search {
+		n, err = rand.Prime(rand.Reader, max.BitLen()-1)
+		if err != nil {
+			return nil, err
+		}
+		//check if prime number found is smaller than max. otherwise, do it again
+		low := n.Cmp(max) == 1
+		up := n.Cmp(min) == -1
+		search = low && up
+	}
+	return n, err
+}
+
+/**
+ * Returns a random prime number from the range (min, max) inclusive
+**/
+func RandomBigBetween(min, max *big.Int) *big.Int {
+	var n *big.Int
+	var err error
+
+	search := true
+	for search {
+		n, err = rand.Int(rand.Reader, max)
+		if err != nil {
+			return nil
+		}
+		//check if prime number found is smaller than max. otherwise, do it again
+		low := n.Cmp(max) == 1
+		up := n.Cmp(min) == -1
+		search = low && up
+	}
+	return n
 }
 
 /**

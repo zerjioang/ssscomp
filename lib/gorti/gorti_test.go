@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestGortiScheme(t *testing.T){
+func TestGortiScheme(t *testing.T) {
 	t.Run("encrypt-decrypt", func(t *testing.T) {
 		gortiSchema := NewGorti(30)
 		t.Log("encrypting message: 1000")
