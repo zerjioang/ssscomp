@@ -9,24 +9,42 @@ import "encoding/binary"
 // This code is a port of the public domain, “ref10” implementation of ed25519
 // from SUPERCOP.
 
-// FieldElement represents an element of the field GF(2^255 - 19).  An element
+// fieldElement represents an element of the field GF(2^255 - 19).  An element
 // t, entries t[0]...t[9], represents the integer t[0]+2^26 t[1]+2^51 t[2]+2^77
 // t[3]+2^102 t[4]+...+2^230 t[9].  Bounds on each t[i] vary depending on
 // context.
-type FieldElement [10]int32
+type fieldElement [10]int32
 
-var zero FieldElement
+const zeroInt32 int32 = 0
+const oneInt32 int32 = 1
 
-func FeZero(fe *FieldElement) {
-	copy(fe[:], zero[:])
+func FeZero(fe *fieldElement) {
+	fe[9] = zeroInt32
+	fe[8] = zeroInt32
+	fe[7] = zeroInt32
+	fe[6] = zeroInt32
+	fe[5] = zeroInt32
+	fe[4] = zeroInt32
+	fe[3] = zeroInt32
+	fe[2] = zeroInt32
+	fe[1] = zeroInt32
+	fe[0] = zeroInt32
 }
 
-func FeOne(fe *FieldElement) {
-	FeZero(fe)
-	fe[0] = 1
+func FeOne(fe *fieldElement) {
+	fe[9] = zeroInt32
+	fe[8] = zeroInt32
+	fe[7] = zeroInt32
+	fe[6] = zeroInt32
+	fe[5] = zeroInt32
+	fe[4] = zeroInt32
+	fe[3] = zeroInt32
+	fe[2] = zeroInt32
+	fe[1] = zeroInt32
+	fe[0] = oneInt32
 }
 
-func FeAdd(dst, a, b *FieldElement) {
+func FeAdd(dst, a, b *fieldElement) {
 	dst[0] = a[0] + b[0]
 	dst[1] = a[1] + b[1]
 	dst[2] = a[2] + b[2]
@@ -39,7 +57,7 @@ func FeAdd(dst, a, b *FieldElement) {
 	dst[9] = a[9] + b[9]
 }
 
-func FeSub(dst, a, b *FieldElement) {
+func FeSub(dst, a, b *fieldElement) {
 	dst[0] = a[0] - b[0]
 	dst[1] = a[1] - b[1]
 	dst[2] = a[2] - b[2]
@@ -52,7 +70,7 @@ func FeSub(dst, a, b *FieldElement) {
 	dst[9] = a[9] - b[9]
 }
 
-func FeCopy(dst, src *FieldElement) {
+func FeCopy(dst, src *fieldElement) {
 	copy(dst[:], src[:])
 }
 
@@ -60,7 +78,7 @@ func FeCopy(dst, src *FieldElement) {
 // replace (f,g) with (f,g) if b == 0.
 //
 // Preconditions: b in {0,1}.
-func FeCMove(f, g *FieldElement, b int32) {
+func FeCMove(f, g *fieldElement, b int32) {
 	b = -b
 	f[0] ^= b & (f[0] ^ g[0])
 	f[1] ^= b & (f[1] ^ g[1])
@@ -75,23 +93,21 @@ func FeCMove(f, g *FieldElement, b int32) {
 }
 
 func load3(in []byte) int64 {
-	var r int64
-	r = int64(in[0])
+	r := int64(in[0])
 	r |= int64(in[1]) << 8
 	r |= int64(in[2]) << 16
 	return r
 }
 
 func load4(in []byte) int64 {
-	var r int64
-	r = int64(in[0])
+	r := int64(in[0])
 	r |= int64(in[1]) << 8
 	r |= int64(in[2]) << 16
 	r |= int64(in[3]) << 24
 	return r
 }
 
-func FeFromBytes(dst *FieldElement, src *[32]byte) {
+func FeFromBytes(dst *fieldElement, src *[32]byte) {
 	h0 := load4(src[:])
 	h1 := load3(src[4:]) << 6
 	h2 := load3(src[7:]) << 5
@@ -129,7 +145,7 @@ func FeFromBytes(dst *FieldElement, src *[32]byte) {
 //
 //   Have q+2^(-255)x = 2^(-255)(h + 19 2^(-25) h9 + 2^(-1))
 //   so floor(2^(-255)(h + 19 2^(-25) h9 + 2^(-1))) = q.
-func FeToBytes(s *[32]byte, h *FieldElement) {
+func FeToBytes(s *[32]byte, h *fieldElement) {
 	var carry [10]int32
 
 	q := (19*h[9] + (1 << 24)) >> 25
@@ -218,13 +234,13 @@ func FeToBytes(s *[32]byte, h *FieldElement) {
 	s[31] = byte(h[9] >> 18)
 }
 
-func FeIsNegative(f *FieldElement) byte {
+func FeIsNegative(f *fieldElement) byte {
 	var s [32]byte
 	FeToBytes(&s, f)
 	return s[0] & 1
 }
 
-func FeIsNonZero(f *FieldElement) int32 {
+func FeIsNonZero(f *fieldElement) int32 {
 	var s [32]byte
 	FeToBytes(&s, f)
 	var x uint8
@@ -244,7 +260,7 @@ func FeIsNonZero(f *FieldElement) int32 {
 //
 // Postconditions:
 //    |h| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
-func FeNeg(h, f *FieldElement) {
+func FeNeg(h, f *fieldElement) {
 	h[0] = -f[0]
 	h[1] = -f[1]
 	h[2] = -f[2]
@@ -257,7 +273,7 @@ func FeNeg(h, f *FieldElement) {
 	h[9] = -f[9]
 }
 
-func FeCombine(h *FieldElement, h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 int64) {
+func FeCombine(h *fieldElement, h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 int64) {
 	var c0, c1, c2, c3, c4, c5, c6, c7, c8, c9 int64
 
 	/*
@@ -373,7 +389,7 @@ func FeCombine(h *FieldElement, h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 int64) {
 // Can get away with 11 carries, but then data flow is much deeper.
 //
 // With tighter constraints on inputs, can squeeze carries into int32.
-func FeMul(h, f, g *FieldElement) {
+func FeMul(h, f, g *fieldElement) {
 	f0 := int64(f[0])
 	f1 := int64(f[1])
 	f2 := int64(f[2])
@@ -426,7 +442,7 @@ func FeMul(h, f, g *FieldElement) {
 	FeCombine(h, h0, h1, h2, h3, h4, h5, h6, h7, h8, h9)
 }
 
-func feSquare(f *FieldElement) (h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 int64) {
+func feSquare(f *fieldElement) (h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 int64) {
 	f0 := int64(f[0])
 	f1 := int64(f[1])
 	f2 := int64(f[2])
@@ -472,7 +488,7 @@ func feSquare(f *FieldElement) (h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 int64) {
 //
 // Postconditions:
 //    |h| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
-func FeSquare(h, f *FieldElement) {
+func FeSquare(h, f *fieldElement) {
 	h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 := feSquare(f)
 	FeCombine(h, h0, h1, h2, h3, h4, h5, h6, h7, h8, h9)
 }
@@ -487,7 +503,7 @@ func FeSquare(h, f *FieldElement) {
 // Postconditions:
 //    |h| bounded by 1.01*2^25,1.01*2^24,1.01*2^25,1.01*2^24,etc.
 // See fe_mul.c for discussion of implementation strategy.
-func FeSquare2(h, f *FieldElement) {
+func FeSquare2(h, f *fieldElement) {
 	h0, h1, h2, h3, h4, h5, h6, h7, h8, h9 := feSquare(f)
 
 	h0 += h0
@@ -504,8 +520,8 @@ func FeSquare2(h, f *FieldElement) {
 	FeCombine(h, h0, h1, h2, h3, h4, h5, h6, h7, h8, h9)
 }
 
-func FeInvert(out, z *FieldElement) {
-	var t0, t1, t2, t3 FieldElement
+func FeInvert(out, z *fieldElement) {
+	var t0, t1, t2, t3 fieldElement
 	var i int
 
 	FeSquare(&t0, z)        // 2^1
@@ -559,8 +575,8 @@ func FeInvert(out, z *FieldElement) {
 	FeMul(out, &t1, &t0) // 254..5,3,1,0
 }
 
-func fePow22523(out, z *FieldElement) {
-	var t0, t1, t2 FieldElement
+func fePow22523(out, z *fieldElement) {
+	var t0, t1, t2 fieldElement
 	var i int
 
 	FeSquare(&t0, z)
@@ -630,23 +646,23 @@ func fePow22523(out, z *FieldElement) {
 //   PreComputedGroupElement: (y+x,y-x,2dxy)
 
 type ProjectiveGroupElement struct {
-	X, Y, Z FieldElement
+	X, Y, Z fieldElement
 }
 
 type ExtendedGroupElement struct {
-	X, Y, Z, T FieldElement
+	X, Y, Z, T fieldElement
 }
 
 type CompletedGroupElement struct {
-	X, Y, Z, T FieldElement
+	X, Y, Z, T fieldElement
 }
 
 type PreComputedGroupElement struct {
-	yPlusX, yMinusX, xy2d FieldElement
+	yPlusX, yMinusX, xy2d fieldElement
 }
 
 type CachedGroupElement struct {
-	yPlusX, yMinusX, Z, T2d FieldElement
+	yPlusX, yMinusX, Z, T2d fieldElement
 }
 
 func (p *ProjectiveGroupElement) Zero() {
@@ -656,7 +672,7 @@ func (p *ProjectiveGroupElement) Zero() {
 }
 
 func (p *ProjectiveGroupElement) Double(r *CompletedGroupElement) {
-	var t0 FieldElement
+	var t0 fieldElement
 
 	FeSquare(&r.X, &p.X)
 	FeSquare(&r.Z, &p.Y)
@@ -670,7 +686,7 @@ func (p *ProjectiveGroupElement) Double(r *CompletedGroupElement) {
 }
 
 func (p *ProjectiveGroupElement) ToBytes(s *[32]byte) {
-	var recip, x, y FieldElement
+	var recip, x, y fieldElement
 
 	FeInvert(&recip, &p.Z)
 	FeMul(&x, &p.X, &recip)
@@ -706,7 +722,7 @@ func (p *ExtendedGroupElement) ToProjective(r *ProjectiveGroupElement) {
 }
 
 func (p *ExtendedGroupElement) ToBytes(s *[32]byte) {
-	var recip, x, y FieldElement
+	var recip, x, y fieldElement
 
 	FeInvert(&recip, &p.Z)
 	FeMul(&x, &p.X, &recip)
@@ -716,7 +732,7 @@ func (p *ExtendedGroupElement) ToBytes(s *[32]byte) {
 }
 
 func (p *ExtendedGroupElement) FromBytes(s *[32]byte) bool {
-	var u, v, v3, vxx, check FieldElement
+	var u, v, v3, vxx, check fieldElement
 
 	FeFromBytes(&p.Y, s)
 	FeOne(&p.Z)
@@ -781,7 +797,7 @@ func (p *PreComputedGroupElement) Zero() {
 }
 
 func geAdd(r *CompletedGroupElement, p *ExtendedGroupElement, q *CachedGroupElement) {
-	var t0 FieldElement
+	var t0 fieldElement
 
 	FeAdd(&r.X, &p.Y, &p.X)
 	FeSub(&r.Y, &p.Y, &p.X)
@@ -797,7 +813,7 @@ func geAdd(r *CompletedGroupElement, p *ExtendedGroupElement, q *CachedGroupElem
 }
 
 func geSub(r *CompletedGroupElement, p *ExtendedGroupElement, q *CachedGroupElement) {
-	var t0 FieldElement
+	var t0 fieldElement
 
 	FeAdd(&r.X, &p.Y, &p.X)
 	FeSub(&r.Y, &p.Y, &p.X)
@@ -813,7 +829,7 @@ func geSub(r *CompletedGroupElement, p *ExtendedGroupElement, q *CachedGroupElem
 }
 
 func geMixedAdd(r *CompletedGroupElement, p *ExtendedGroupElement, q *PreComputedGroupElement) {
-	var t0 FieldElement
+	var t0 fieldElement
 
 	FeAdd(&r.X, &p.Y, &p.X)
 	FeSub(&r.Y, &p.Y, &p.X)
@@ -828,7 +844,7 @@ func geMixedAdd(r *CompletedGroupElement, p *ExtendedGroupElement, q *PreCompute
 }
 
 func geMixedSub(r *CompletedGroupElement, p *ExtendedGroupElement, q *PreComputedGroupElement) {
-	var t0 FieldElement
+	var t0 fieldElement
 
 	FeAdd(&r.X, &p.Y, &p.X)
 	FeSub(&r.Y, &p.Y, &p.X)
