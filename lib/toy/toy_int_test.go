@@ -1,8 +1,9 @@
 package toy
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestIntegerToyHomoScheme(t *testing.T) {

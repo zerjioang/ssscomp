@@ -17,9 +17,10 @@ import (
 	"crypto/subtle"
 	"encoding/json"
 	"errors"
-	"github.com/zerjioang/ssscomp/lib/common"
 	"io"
 	"math/big"
+
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 const (

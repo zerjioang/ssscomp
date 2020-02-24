@@ -3,6 +3,7 @@ package integer
 import (
 	"errors"
 	"fmt"
+
 	"github.com/zerjioang/ssscomp/lib/common"
 )
 

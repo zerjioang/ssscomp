@@ -2,8 +2,9 @@ package rlwe_test
 
 import (
 	"fmt"
-	"github.com/zerjioang/ssscomp/lib/rlwe"
 	"testing"
+
+	"github.com/zerjioang/ssscomp/lib/rlwe"
 )
 
 func TestRLWE(t *testing.T) {

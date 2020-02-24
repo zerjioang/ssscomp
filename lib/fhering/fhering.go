@@ -2,9 +2,10 @@ package fhering
 
 import (
 	"fmt"
+	"math/big"
+
 	"github.com/zerjioang/ssscomp/lib/common"
 	"github.com/zerjioang/ssscomp/lib/math"
-	"math/big"
 )
 
 // Fully homomorphic encryption in ring of binary integers

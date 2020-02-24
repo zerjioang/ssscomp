@@ -2,9 +2,10 @@ package galois
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var testpoly2 = GfPoly{

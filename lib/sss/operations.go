@@ -2,6 +2,7 @@ package sss
 
 import (
 	"errors"
+
 	"github.com/zerjioang/ssscomp/lib/common"
 )
 

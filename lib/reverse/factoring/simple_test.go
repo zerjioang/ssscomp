@@ -2,8 +2,9 @@ package factoring
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPrimeFactors(t *testing.T) {

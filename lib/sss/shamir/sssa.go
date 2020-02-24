@@ -2,8 +2,9 @@ package shamir
 
 import (
 	"errors"
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
+
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 var (

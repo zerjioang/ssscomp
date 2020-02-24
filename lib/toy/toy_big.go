@@ -1,9 +1,10 @@
 package toy
 
 import (
+	"math/big"
+
 	"github.com/zerjioang/ssscomp/lib/common"
 	"github.com/zerjioang/ssscomp/lib/math"
-	"math/big"
 )
 
 const (

@@ -3,10 +3,11 @@ package paillier
 import (
 	"crypto/rand"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"io"
 	"math/big"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func getGP(size string) (g, p *big.Int) {

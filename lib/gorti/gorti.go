@@ -1,8 +1,9 @@
 package gorti
 
 import (
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
+
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 // Define the encryption key k = (p, q,m,r)

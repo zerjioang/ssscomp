@@ -2,8 +2,9 @@ package main
 
 import (
 	"errors"
-	"github.com/zerjioang/ssscomp/lib/bigconst"
 	"math/big"
+
+	"github.com/zerjioang/ssscomp/lib/bigconst"
 )
 
 func generateIds(p, q, uid, xa, xb *big.Int, bits int) error {

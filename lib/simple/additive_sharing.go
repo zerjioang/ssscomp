@@ -3,6 +3,7 @@ package simple
 import (
 	"errors"
 	"fmt"
+
 	"github.com/zerjioang/ssscomp/lib/common"
 )
 

@@ -2,9 +2,10 @@ package common
 
 import (
 	"bytes"
-	"github.com/stretchr/testify/assert"
 	"math/big"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRandom(t *testing.T) {

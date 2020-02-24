@@ -2,10 +2,11 @@ package unpaddedrsa
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 func TestUnpaddedRsa(t *testing.T) {

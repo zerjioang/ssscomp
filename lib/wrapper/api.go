@@ -6,8 +6,9 @@ package main
 import "C"
 import (
 	"fmt"
-	"github.com/zerjioang/ssscomp/lib/simple"
 	"unsafe"
+
+	"github.com/zerjioang/ssscomp/lib/simple"
 )
 
 const (

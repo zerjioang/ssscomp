@@ -2,8 +2,9 @@ package elgamal
 
 import (
 	"encoding/json"
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
+
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 // ElGamal cryptosystem

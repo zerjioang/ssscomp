@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/zerjioang/ssscomp/lib/bigconst"
 	"math/big"
 	"testing"
+
+	"github.com/zerjioang/ssscomp/lib/bigconst"
 )
 
 func BenchmarkCL15(b *testing.B) {

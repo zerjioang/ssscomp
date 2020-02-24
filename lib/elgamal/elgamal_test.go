@@ -3,11 +3,12 @@ package elgamal
 import (
 	"bytes"
 	"crypto/rand"
-	"github.com/stretchr/testify/assert"
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 // This is the 1024-bit MODP group from RFC 5114, section 2.1:

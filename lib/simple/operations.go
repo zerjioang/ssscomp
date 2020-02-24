@@ -2,6 +2,7 @@ package simple
 
 import (
 	"errors"
+
 	"github.com/zerjioang/ssscomp/lib/common"
 )
 

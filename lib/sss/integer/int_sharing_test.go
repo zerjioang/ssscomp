@@ -2,9 +2,10 @@ package integer
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/zerjioang/ssscomp/lib/common"
-	"testing"
 )
 
 func TestAdditiveShare(t *testing.T) {

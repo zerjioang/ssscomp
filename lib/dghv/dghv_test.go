@@ -2,10 +2,11 @@ package dghv
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 func TestDghv(t *testing.T) {

@@ -1,8 +1,9 @@
 package gm
 
 import (
-	"github.com/zerjioang/ssscomp/lib/math"
 	"math/big"
+
+	"github.com/zerjioang/ssscomp/lib/math"
 )
 
 type GM struct {

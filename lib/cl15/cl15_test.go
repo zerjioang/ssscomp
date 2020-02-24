@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/zerjioang/ssscomp/lib/bigconst"
 	"log"
 	"math/big"
 	"testing"
+
+	"github.com/zerjioang/ssscomp/lib/bigconst"
 )
 
 const (

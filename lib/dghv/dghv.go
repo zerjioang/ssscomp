@@ -2,11 +2,12 @@ package dghv
 
 import (
 	"fmt"
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math"
 	"math/big"
 	"math/rand"
 	"time"
+
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 // len(c) = aprox 2 * 10^7 bits

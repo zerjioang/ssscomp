@@ -18,8 +18,10 @@ Any attempt to cross-compile would cause this file to be skipped and thus the RN
 */
 package rlwe
 
-import "time"
-import "crypto/rand"
+import (
+	"crypto/rand"
+	"time"
+)
 
 var x uint64 /* The state must be seeded with a nonzero value. */
 

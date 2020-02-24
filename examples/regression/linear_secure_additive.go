@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/sajari/regression"
 	"github.com/zerjioang/ssscomp/lib/common"
 	"github.com/zerjioang/ssscomp/lib/helper"

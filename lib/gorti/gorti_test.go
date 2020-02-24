@@ -1,9 +1,10 @@
 package gorti
 
 import (
-	"github.com/zerjioang/ssscomp/lib/common"
 	"math/big"
 	"testing"
+
+	"github.com/zerjioang/ssscomp/lib/common"
 )
 
 func TestGortiScheme(t *testing.T) {
