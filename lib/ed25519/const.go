@@ -9,7 +9,6 @@ import "math/big"
 // These values are from the public domain, “ref10” implementation of ed25519
 // from SUPERCOP.
 
-
 // prime modulus of underlying field = 2^255 - 19
 var prime, _ = new(big.Int).SetString("57896044618658097711785492504343953926634992332820282019728792003956564819949", 10)
 
@@ -26,7 +25,6 @@ var cofactor = new(big.Int).SetInt64(8)
 
 // order of the full group including the cofactor
 var fullOrder = new(big.Int).Mul(primeOrder, cofactor)
-
 
 // d is a constant in the Edwards curve equation.
 var d = fieldElement{

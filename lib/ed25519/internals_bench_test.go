@@ -22,8 +22,8 @@ func BenchmarkInternals(b *testing.B) {
 	b.Run("add-fe", func(b *testing.B) {
 		b.ReportAllocs()
 		b.SetBytes(1)
-		a := fieldElement{2,2,2,2,2,2,2,2,2,2}
-		c := fieldElement{3,3,3,3,3,3,3,3,3,3}
+		a := fieldElement{2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
+		c := fieldElement{3, 3, 3, 3, 3, 3, 3, 3, 3, 3}
 		dst := fieldElement{}
 		for n := 0; n < b.N; n++ {
 			FeAdd(&dst, &a, &c)

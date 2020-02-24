@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  digest = "1:3c72c4b4159f7ef8e897c4ed14ca7d491ecaa53a3285d12debc923ff1f197963"
+  name = "github.com/btcsuite/btcd"
+  packages = ["btcec"]
+  pruneopts = "UT"
+  revision = "f3ec13030e4e828869954472cbc51ac36bee5c1d"
+  version = "v0.20.1-beta"
+
+[[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -18,24 +26,31 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:1707ba850f6833209dad6ad897d1bf4943bf72355129cb833be9ebbbc517c46d"
+  digest = "1:bb2642282400149a351f87139af149a9338f386e648d8b00153e58b253e2be74"
   name = "github.com/sajari/regression"
   packages = ["."]
   pruneopts = "UT"
-  revision = "c268e5d9b4c03d0c3aa9b67ee0ecbaf7bd08a6b9"
-  version = "v1.0.0"
+  revision = "d629f2e9549b2bb5f7c5b2bcfa716f074feb2d82"
+  version = "v1.0.1"
 
 [[projects]]
-  digest = "1:8548c309c65a85933a625be5e7d52b6ac927ca30c56869fae58123b8a77a75e1"
+  digest = "1:5e8f46b412421d2d6cceea845d28ac46f3f5a5f60a6e86f0ee75e24fd43a02a9"
   name = "github.com/stretchr/testify"
   packages = ["assert"]
   pruneopts = "UT"
-  revision = "221dbe5ed46703ee255b1da0dec05086f5035f62"
-  version = "v1.4.0"
+  revision = "3ebf1ddaeb260c4b1ae502a01c7844fa8c1fa0e9"
+  version = "v1.5.1"
 
 [[projects]]
   branch = "master"
-  digest = "1:9430888ca04bd674dbaed65f51f9b6038f8018a05b261195fb50662ffa5f52d7"
+  digest = "1:5aca995abc0583ffb1083f7b368fe65082d7fe57682d283f2f021272b70a4fc1"
+  name = "golang.org/x/crypto"
+  packages = ["ed25519/internal/edwards25519"]
+  pruneopts = "UT"
+  revision = "2aa609cf4a9d7d1126360de73b55b6002f9e052a"
+
+[[projects]]
+  digest = "1:eddd22c0dad686dbefbd1ecdd6c67cdced416342ba31c4678fb8e2bfe054c96d"
   name = "gonum.org/v1/gonum"
   packages = [
     "blas",
@@ -55,22 +70,25 @@
     "mat",
   ]
   pruneopts = "UT"
-  revision = "43865b531bee9d28dccf2cf831db9eef686ca8c6"
+  revision = "402b1e2868774b0eee0ec7c85bb9a7b36cf650ae"
+  version = "v0.6.2"
 
 [[projects]]
-  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
+  digest = "1:55b110c99c5fdc4f14930747326acce56b52cfce60b24b1c03ef686ac0e46bb1"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
-  version = "v2.2.2"
+  revision = "53403b58ad1b561927d19068c655246f2db79d48"
+  version = "v2.2.8"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/btcsuite/btcd/btcec",
     "github.com/sajari/regression",
     "github.com/stretchr/testify/assert",
+    "golang.org/x/crypto/ed25519/internal/edwards25519",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
